@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+
+<title>Registration Form</title>
+
+{% block body %}
+    <div class="container">
+        <h3 class="mb-3">Registration Form</h3>
+
+        {{ form_start(registrationForm) }}
+            {{ form_row(registrationForm.name, {label: 'Enter name:'}) }}
+            {{ form_row(registrationForm.email, {label: 'Enter email:'}) }}
+            {{ form_row(registrationForm.plainPassword, {label: 'Enter password:'}) }}
+
+            <button type="submit" class="btn">Create my account</button>
+        {{ form_end(registrationForm) }}
+    </div>
+{% endblock %}
