@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
+use JetBrains\PhpStorm\Pure;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,7 +32,13 @@ class RegistrationController extends AbstractController
 
             $user->setRoles(User::ROLE_USER);
 
-            $user->setLanguage(User::ENG);
+            if (self::currentLanguage($request) == 'en') {
+                $user->setLanguage(User::ENG);
+            }
+            elseif (self::currentLanguage($request) == 'ru') {
+                $user->setLanguage(User::RUS);
+            }
+
             $user->setTheme(User::LIGHT);
 
             $entityManager->persist($user);
@@ -45,5 +52,11 @@ class RegistrationController extends AbstractController
             'registrationForm' => $form->createView(),
             'title' => 'Registration Form',
         ]);
+    }
+
+    #[Pure]
+    static function currentLanguage(Request $request): string
+    {
+        return $request->getLocale();
     }
 }

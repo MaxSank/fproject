@@ -15,8 +15,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Table(name: '`user`')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    const ENG = 'eng';
-    const RUS = 'rus';
+    const ENG = 'en';
+    const RUS = 'ru';
     const LIGHT = 'light';
     const DARK = 'dark';
     const ROLE_USER = ['ROLE_USER'];

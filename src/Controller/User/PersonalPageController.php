@@ -16,4 +16,13 @@ class PersonalPageController extends BaseController
 
     }
 
+    #[Route('/{language}/user-{name}', name: 'userAuthentication')]
+    public function indexAuth(string $language, string $name)
+    {
+        $forRender = parent::renderDefault();
+        $forRender['title'] = 'Personal page';
+        return $this->render('personalpage/index.html.twig', $forRender);
+
+    }
+
 }

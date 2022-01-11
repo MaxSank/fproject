@@ -49,8 +49,10 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }
 
+        $language = $token->getUser()->getLanguage();
+
         // For example:
-        return new RedirectResponse($this->urlGenerator->generate('user', ['name' => $token->getUserIdentifier()]));
+        return new RedirectResponse($this->urlGenerator->generate('userAuthentication', ['name' => $token->getUserIdentifier(), 'language' => $language]));
         //throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 
