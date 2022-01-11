@@ -58,8 +58,16 @@
         <target>Регистрация</target>
       </trans-unit>
       <trans-unit id="HFc1_gs" resname="page_of_user_text">
-        <source>Text on the page of user</source>
+        <source>page_of_user_text</source>
         <target>Текст на странице пользователя</target>
+      </trans-unit>
+      <trans-unit id="tRLZfny" resname="User">
+        <source>User</source>
+        <target>Пользователь</target>
+      </trans-unit>
+      <trans-unit id="zI.Z63_" resname="Welcome!">
+        <source>Welcome!</source>
+        <target>Добро пожаловать!</target>
       </trans-unit>
     </body>
   </file>

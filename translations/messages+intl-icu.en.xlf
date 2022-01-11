@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="n5.q3nY" resname="Collections">
+        <source>Collections</source>
+        <target>Collections</target>
+      </trans-unit>
+      <trans-unit id="hRplU37" resname="Personal page">
+        <source>Personal page</source>
+        <target>Personal page</target>
+      </trans-unit>
+      <trans-unit id="0FJ_Sz1" resname="Logout">
+        <source>Logout</source>
+        <target>Logout</target>
+      </trans-unit>
+      <trans-unit id="nWMiwfT" resname="Login">
+        <source>Login</source>
+        <target>Login</target>
+      </trans-unit>
+      <trans-unit id="x5Pg2aH" resname="Registration">
+        <source>Registration</source>
+        <target>Registration</target>
+      </trans-unit>
+      <trans-unit id="HFc1_gs" resname="page_of_user_text">
+        <source>page_of_user_text</source>
+        <target>Text on the page of user</target>
+      </trans-unit>
+      <trans-unit id="emYoaaa" resname="Registration Form">
+        <source>Registration Form</source>
+        <target>Registration Form</target>
+      </trans-unit>
+      <trans-unit id="hi07Jpb" resname="Create my account">
+        <source>Create my account</source>
+        <target>Create my account</target>
+      </trans-unit>
+      <trans-unit id="wIIBJkE" resname="Authorisation Form">
+        <source>Authorisation Form</source>
+        <target>Authorisation Form</target>
+      </trans-unit>
+      <trans-unit id="acVpEs4" resname="You are logged in as">
+        <source>You are logged in as</source>
+        <target>You are logged in as</target>
+      </trans-unit>
+      <trans-unit id="2aMyZdh" resname="Enter name:">
+        <source>Enter name:</source>
+        <target>Enter name:</target>
+      </trans-unit>
+      <trans-unit id="VnklBv." resname="Enter password:">
+        <source>Enter password:</source>
+        <target>Enter password:</target>
+      </trans-unit>
+      <trans-unit id="VPlxXQf" resname="Sign in to your account">
+        <source>Sign in to your account</source>
+        <target>Sign in to your account</target>
+      </trans-unit>
+      <trans-unit id="tRLZfny" resname="User">
+        <source>User</source>
+        <target>User</target>
+      </trans-unit>
+      <trans-unit id="zI.Z63_" resname="Welcome!">
+        <source>Welcome!</source>
+        <target>Welcome!</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

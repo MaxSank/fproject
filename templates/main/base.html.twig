@@ -35,7 +35,7 @@
             <div class="md-3 text-end">
                 {% if app.user %}
 
-                    <span class="me-2">User: {{ app.user.name }}</span>
+                    <span class="me-2">{{ 'User'|trans }}: {{ app.user.name }}</span>
                     <a type="button" class="btn btn-outline-primary" href="{{ path('user', {name: app.user.name}) }}">{{ 'Personal page'|trans }}</a>
                     <a type="button" class="btn btn-outline-primary" href="{{ path('app_logout') }}">{{ 'Logout'|trans }}</a>
 
