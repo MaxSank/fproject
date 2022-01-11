@@ -1,17 +1,15 @@
-<!DOCTYPE html>
-
-<title>Registration Form</title>
+{% extends 'main/base.html.twig' %}
 
 {% block body %}
     <div class="container">
-        <h3 class="mb-3">Registration Form</h3>
+        <h3 class="mb-3">{{ 'Registration Form'|trans }}</h3>
 
-        {{ form_start(registrationForm) }}
-            {{ form_row(registrationForm.name, {label: 'Enter name:'}) }}
-            {{ form_row(registrationForm.email, {label: 'Enter email:'}) }}
-            {{ form_row(registrationForm.plainPassword, {label: 'Enter password:'}) }}
+        {{ form_start(registrationForm, {name: "registration_form"}) }}
+            {{ form_row(registrationForm.name) }}
+            {{ form_row(registrationForm.email) }}
+            {{ form_row(registrationForm.plainPassword) }}
 
-            <button type="submit" class="btn">Create my account</button>
+            <button type="submit" class="btn btn-success mt-3">{{ 'Create my account'|trans }}</button>
         {{ form_end(registrationForm) }}
     </div>
 {% endblock %}

@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Controller\Main;
+namespace App\Controller\User;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Controller\Main\BaseController;
 use Symfony\Component\Routing\Annotation\Route;
 
-class PersonalAccountController extends BaseController
+class PersonalPageController extends BaseController
 {
-    #[Route('/user', name: 'user')]
-    public function index()
+    #[Route('/{_locale<%app.supported_locales%>}/user-{name}', name: 'user')]
+    public function index(string $name)
     {
         $forRender = parent::renderDefault();
         $forRender['title'] = 'Personal page';

@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class RegistrationController extends AbstractController
 {
-    #[Route('/register', name: 'app_register')]
+    #[Route('/{_locale<%app.supported_locales%>}/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
@@ -30,6 +30,7 @@ class RegistrationController extends AbstractController
             );
 
             $user->setRoles(User::ROLE_USER);
+
             $user->setLanguage(User::ENG);
             $user->setTheme(User::LIGHT);
 
@@ -42,6 +43,7 @@ class RegistrationController extends AbstractController
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
+            'title' => 'Registration Form',
         ]);
     }
 }

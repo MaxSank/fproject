@@ -1,29 +1,27 @@
 {% extends 'main/base.html.twig' %}
 
-{% block title %}Authorisation Form{% endblock %}
-
 {% block body %}
 <div class="container">
 
-    <h3 class="mb-3">Authorisation Form</h3>
+    <h3 class="mb-3">{{ 'Authorisation Form'|trans }}</h3>
 
-    <form method="post">
+    <form method="post" name="authorisation_form">
         {% if error %}
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
 
         {% if app.user %}
             <div class="mb-3">
-                You are logged in as {{ app.user.name }}, <a href="{{ path('app_logout') }}">Logout</a>
+                {{ 'You are logged in as'|trans }} {{ app.user.name }}, <a href="{{ path('app_logout') }}">{{ 'Logout'|trans }}</a>
             </div>
         {% endif %}
 
         <div class="mb-3">
-            <label for="inputUsername" class="form-label required">Enter name:</label>
+            <label for="inputUsername" class="form-label required">{{ 'Enter name:'|trans }}</label>
             <input type="text" value="{{ last_username }}" name="name" id="inputUsername" class="form-control" autocomplete="name" required autofocus>
         </div>
         <div class="mb-3">
-            <label for="inputPassword" class="form-label required">Enter password:</label>
+            <label for="inputPassword" class="form-label required">{{ 'Enter password:'|trans }}</label>
             <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
         </div>
 
@@ -42,8 +40,8 @@
             </div>
         #}
 
-        <button class="btn btn-lg btn-primary" type="submit">
-            Sign in to your account
+        <button class="btn btn-primary" type="submit">
+            {{ 'Sign in to your account'|trans }}
         </button>
     </form>
 </div>

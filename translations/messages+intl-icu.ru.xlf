@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="ru" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="wIIBJkE" resname="Authorisation Form">
+        <source>Authorisation Form</source>
+        <target>Форма авторизации</target>
+      </trans-unit>
+      <trans-unit id="acVpEs4" resname="You are logged in as">
+        <source>You are logged in as</source>
+        <target>Вы вошли как</target>
+      </trans-unit>
+      <trans-unit id="0FJ_Sz1" resname="Logout">
+        <source>Logout</source>
+        <target>Выход</target>
+      </trans-unit>
+      <trans-unit id="2aMyZdh" resname="Enter name:">
+        <source>Enter name:</source>
+        <target>Введите имя:</target>
+      </trans-unit>
+      <trans-unit id="VnklBv." resname="Enter password:">
+        <source>Enter password:</source>
+        <target>Введите пароль:</target>
+      </trans-unit>
+      <trans-unit id="VPlxXQf" resname="Sign in to your account">
+        <source>Sign in to your account</source>
+        <target>Войти в Ваш аккаунт</target>
+      </trans-unit>
+      <trans-unit id="sAPOn.I" resname="Enter email:">
+        <source>Enter email:</source>
+        <target>Введите email:</target>
+      </trans-unit>
+      <trans-unit id="emYoaaa" resname="Registration Form">
+        <source>Registration Form</source>
+        <target>Регистрационная форма</target>
+      </trans-unit>
+      <trans-unit id="hi07Jpb" resname="Create my account">
+        <source>Create my account</source>
+        <target>Создать мой аккаунт</target>
+      </trans-unit>
+      <trans-unit id="n5.q3nY" resname="Collections">
+        <source>Collections</source>
+        <target>Коллекции</target>
+      </trans-unit>
+      <trans-unit id="hRplU37" resname="Personal page">
+        <source>Personal page</source>
+        <target>Персональная страница</target>
+      </trans-unit>
+      <trans-unit id="nWMiwfT" resname="Login">
+        <source>Login</source>
+        <target>Войти</target>
+      </trans-unit>
+      <trans-unit id="x5Pg2aH" resname="Registration">
+        <source>Registration</source>
+        <target>Регистрация</target>
+      </trans-unit>
+      <trans-unit id="HFc1_gs" resname="page_of_user_text">
+        <source>Text on the page of user</source>
+        <target>Текст на странице пользователя</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
