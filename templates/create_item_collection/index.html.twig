@@ -1,0 +1,17 @@
+{% extends 'main/base.html.twig' %}
+
+
+{% block body %}
+    <div class="container">
+        <h3 class="mb-3">{{ 'Create collection'|trans }}</h3>
+
+        {{ form_start(createItemCollectionForm, {name: "create_item_collection_form"}) }}
+        {{ form_row(createItemCollectionForm.name) }}
+        {{ form_row(createItemCollectionForm.description) }}
+
+
+        <button type="submit" class="btn btn-success mt-3">{{ 'Create collection'|trans }}</button>
+        {{ form_end(createItemCollectionForm) }}
+    </div>
+
+{% endblock %}

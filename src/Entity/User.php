@@ -144,9 +144,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setLanguage($language)
     {
-        if (!in_array($language, array(self::ENG, self::RUS))) {
+        /*if (!in_array($language, array(self::ENG, self::RUS))) {
             throw new \InvalidArgumentException("Invalid language");
-        }
+        }*/
         $this->language = $language;
     }
 

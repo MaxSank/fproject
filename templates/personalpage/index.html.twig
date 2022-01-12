@@ -4,4 +4,16 @@
 
     {{ 'page_of_user_text'|trans }}
 
+    {% for single_collection in collections %}
+    <div class="card border-dark mb-3">
+    <div class="card-header">
+        <div>{{ single_collection.name }}</div>
+    </div>
+    <div class="card-body text-dark">
+
+    <div>{{ single_collection.description  }}</div>
+    </div>
+    </div>
+    {% endfor %}
+
 {% endblock %}

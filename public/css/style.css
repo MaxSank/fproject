@@ -7,6 +7,10 @@ form[name*="authorisation_form"]{
     max-width: 500px;
 }
 
+ form[name*="create_item_collection_form"]{
+     max-width: 500px;
+ }
+
 /*Align of user's name and text inside buttons*/
 span.me-2 {
     vertical-align: middle;

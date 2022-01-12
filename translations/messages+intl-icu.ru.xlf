@@ -69,6 +69,18 @@
         <source>Welcome!</source>
         <target>Добро пожаловать!</target>
       </trans-unit>
+      <trans-unit id="CEGh__V" resname="Enter a name for the collection:">
+        <source>Enter a name for the collection:</source>
+        <target>Введите имя коллекции:</target>
+      </trans-unit>
+      <trans-unit id="T.Kn2tk" resname="Enter a description for the collection:">
+        <source>Enter a description for the collection:</source>
+        <target>Введите описание коллекции:</target>
+      </trans-unit>
+      <trans-unit id="aRUr01l" resname="Create collection">
+        <source>Create collection</source>
+        <target>Создать коллекцию</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

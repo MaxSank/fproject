@@ -65,6 +65,18 @@
         <source>Welcome!</source>
         <target>Welcome!</target>
       </trans-unit>
+      <trans-unit id="CEGh__V" resname="Enter a name for the collection:">
+        <source>Enter a name for the collection:</source>
+        <target>Enter a name for the collection:</target>
+      </trans-unit>
+      <trans-unit id="T.Kn2tk" resname="Enter a description for the collection:">
+        <source>Enter a description for the collection:</source>
+        <target>Enter a description for the collection:</target>
+      </trans-unit>
+      <trans-unit id="aRUr01l" resname="Create collection">
+        <source>Create collection</source>
+        <target>Create collection</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
