@@ -4,13 +4,12 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-/**
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
- */
+#[UniqueEntity(fields: "email", message: "There is already an account with this email")]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -36,6 +35,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'json')]
     private $roles = [];
 
+    #[Assert\NotBlank(message: 'Please enter a password')]
+    #[Assert\Length(min: '3', max: '4096', minMessage: 'Your password should be at least {{ limit }} characters')]
     #[ORM\Column(type: 'string')]
     private string $password;
 
