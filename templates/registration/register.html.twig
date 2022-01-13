@@ -5,6 +5,7 @@
         <h3 class="mb-3">{{ 'Registration Form'|trans }}</h3>
 
         {{ form_start(registrationForm) }}
+            {{ form_errors(registrationForm) }}
             {{ form_row(registrationForm.name) }}
             {{ form_row(registrationForm.email) }}
             {{ form_row(registrationForm.plainPassword) }}

@@ -35,7 +35,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'json')]
     private $roles = [];
 
-    #[Assert\NotBlank(message: 'Please enter a password')]
     #[Assert\Length(min: '3', max: '4096', minMessage: 'Your password should be at least {{ limit }} characters')]
     #[ORM\Column(type: 'string')]
     private string $password;

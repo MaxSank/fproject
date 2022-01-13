@@ -4,10 +4,13 @@ namespace App\Entity;
 
 use App\Repository\ItemCollectionRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
 #[ORM\Entity(repositoryClass: ItemCollectionRepository::class)]
-#[ORM\UniqueConstraint(name: 'unique_collection', columns: ['user', 'name'])]
+/*#[ORM\UniqueConstraint(name: 'unique_collection', columns: ['user_id', 'name'])]*/
+#[UniqueEntity(fields: ['user', 'name'], message: "There is already an collection with this name")]
 class ItemCollection
 {
     #[ORM\Id]
@@ -20,7 +23,7 @@ class ItemCollection
     private string $name;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private User $user;
 
     #[Assert\NotBlank(message: 'Please enter a description for the collection')]

@@ -47,9 +47,9 @@ class CreateItemCollectionController extends BaseController
             $user_id = $user_from_token->getId();
 
             $user = $this->userRepository->find($user_id);
+            $collection->setUserId($user);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                $collection->setUserId($user);
 
                 $this->em->persist($collection);
                 $this->em->flush();

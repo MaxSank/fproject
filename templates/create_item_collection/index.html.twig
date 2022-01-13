@@ -7,6 +7,7 @@
         <h3 class="mb-3">{{ 'Create collection'|trans }}</h3>
 
         {{ form_start(createItemCollectionForm) }}
+        {{ form_errors(createItemCollectionForm) }}
         {{ form_row(createItemCollectionForm.name) }}
         {{ form_row(createItemCollectionForm.description) }}
 
