@@ -4,11 +4,10 @@ namespace App\Entity;
 
 use App\Repository\ItemCollectionRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 #[ORM\Entity(repositoryClass: ItemCollectionRepository::class)]
+#[ORM\UniqueConstraint(name: 'unique_collection', columns: ['user', 'name'])]
 class ItemCollection
 {
     #[ORM\Id]

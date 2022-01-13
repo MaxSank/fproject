@@ -45,6 +45,10 @@
         <source>You are logged in as</source>
         <target>You are logged in as</target>
       </trans-unit>
+      <trans-unit id="sAPOn.I" resname="Enter email:">
+        <source>Enter email:</source>
+        <target>Enter email:</target>
+      </trans-unit>
       <trans-unit id="2aMyZdh" resname="Enter name:">
         <source>Enter name:</source>
         <target>Enter name:</target>
@@ -77,6 +81,10 @@
         <source>Create collection</source>
         <target>Create collection</target>
       </trans-unit>
+      <trans-unit id="12345" resname="Login to your account or register!">
+              <source>Login to your account or register!</source>
+              <target>Login to your account or register!</target>
+            </trans-unit>
     </body>
   </file>
 </xliff>

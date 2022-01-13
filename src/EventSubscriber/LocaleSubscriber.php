@@ -2,6 +2,7 @@
 
 namespace App\EventSubscriber;
 
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -37,7 +38,7 @@ class LocaleSubscriber implements EventSubscriberInterface
             return ;
         }
 
-        if ($locale != $default_language) {
+        if ($locale != $default_language and in_array($locale, [User::ENG, User::RUS])) {
             $user->setLanguage($locale);
 
             $this->em->flush();

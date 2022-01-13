@@ -2,18 +2,18 @@
 
 namespace App\Controller\Create;
 
+use App\Controller\Main\BaseController;
 use App\Entity\ItemCollection;
-use App\Form\ItemCollectionCreateFormType;
+use App\Form\CreateItemCollectionFormType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
-class CreateItemCollectionController extends AbstractController
+
+class CreateItemCollectionController extends BaseController
 {
 
     private $em;
@@ -32,31 +32,35 @@ class CreateItemCollectionController extends AbstractController
     #[Route('/{_locale<%app.supported_locales%>}/create-collection', name: 'create_item_collection')]
     public function index(Request $request): Response
     {
-        $collection = new ItemCollection();
-        $form = $this->createForm(ItemCollectionCreateFormType::class, $collection);
-        $form->handleRequest($request);
-
         $token = $this->tokenStorage->getToken();
-        $user_from_token = $token->getUser();
-        $user_id = $user_from_token->getId();
+        $forRender = parent::renderDefault();
+        $forRender['controller_name'] = 'CreateItemCollectionController';
+        $forRender['title'] = 'Create collection';
 
-        $user = $this->userRepository->find($user_id);
+        if ($token != null) {
+            $collection = new ItemCollection();
+            $form = $this->createForm(CreateItemCollectionFormType::class, $collection);
+            $forRender['createItemCollectionForm'] = $form->createView();
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $collection->setUserId($user);
+            $user_from_token = $token->getUser();
+            $user_id = $user_from_token->getId();
 
-            $this->em->persist($collection);
-            $this->em->flush();
+            $user = $this->userRepository->find($user_id);
 
-            return $this->redirectToRoute('user', [
-                'name' => $token->getUserIdentifier(),
+            if ($form->isSubmitted() && $form->isValid()) {
+                $collection->setUserId($user);
+
+                $this->em->persist($collection);
+                $this->em->flush();
+
+                return $this->redirectToRoute('user', [
+                    'name' => $token->getUserIdentifier(),
                 ]);
+            }
         }
 
-        return $this->render('create_item_collection/index.html.twig', [
-            'controller_name' => 'CreateItemCollectionController',
-            'createItemCollectionForm' => $form->createView(),
-            'title' => 'Create collection',
-        ]);
+
+        return $this->render('create_item_collection/index.html.twig', $forRender);
     }
 }
