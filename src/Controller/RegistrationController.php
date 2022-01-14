@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use DateTime;
+use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
 use JetBrains\PhpStorm\Pure;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,6 +42,12 @@ class RegistrationController extends AbstractController
             }
 
             $user->setTheme(User::LIGHT);
+
+            $currentTime = new DateTime('now', new DateTimeZone('Europe/Minsk'));
+            $user->setRegistrationDate($currentTime);
+            $user->setLastLoginDate($currentTime);
+
+            $user->setStatus(User::NOT_BLOCKED);
 
             $entityManager->persist($user);
             $entityManager->flush();

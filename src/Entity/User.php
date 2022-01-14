@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -19,6 +20,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     const LIGHT = 'light';
     const DARK = 'dark';
     const ROLE_USER = ['ROLE_USER'];
+    const NOT_BLOCKED = 'Not blocked';
+    const BLOCKED = 'Blocked';
 
 
     #[ORM\Id]
@@ -44,6 +47,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: "string", length: 180)]
     private $theme;
+
+    #[ORM\Column(type: "datetime")]
+    private DateTime $registrationDate;
+
+    #[ORM\Column(type: "datetime")]
+    private DateTime $lastLoginDate;
+
+    #[ORM\Column(type: "string", length: 180)]
+    private $status;
+
 
 
     public function getId(): int
@@ -141,7 +154,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->language;
     }
 
-    public function setLanguage($language)
+    /**
+     * @param string $language
+     */
+    public function setLanguage(string $language): void
     {
         if (!in_array($language, array(self::ENG, self::RUS))) {
             throw new \InvalidArgumentException("Invalid language");
@@ -157,7 +173,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->theme;
     }
 
-    public function setTheme($theme)
+    /**
+     * @param string $theme
+     */
+    public function setTheme(string $theme): void
     {
         if (!in_array($theme, array(self::LIGHT, self::DARK))) {
             throw new \InvalidArgumentException("Invalid theme");
@@ -165,7 +184,56 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->theme = $theme;
     }
 
+    /**
+     * @return DateTime
+     */
+    public function getRegistrationDate(): DateTime
+    {
+        return $this->registrationDate;
+    }
 
+    /**
+     * @param DateTime $registrationDate
+     */
+    public function setRegistrationDate(DateTime $registrationDate): void
+    {
+        $this->registrationDate = $registrationDate;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getLastLoginDate(): DateTime
+    {
+        return $this->lastLoginDate;
+    }
+
+    /**
+     * @param DateTime $lastLoginDate
+     */
+    public function setLastLoginDate(DateTime $lastLoginDate): void
+    {
+        $this->lastLoginDate = $lastLoginDate;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     */
+    public function setStatus(string $status): void
+    {
+        if (!in_array($status, array(self::NOT_BLOCKED, self::BLOCKED))) {
+            throw new \InvalidArgumentException("Invalid status");
+        }
+        $this->status = $status;
+    }
 
     /**
      * Returning a salt is only needed, if you are not using a modern
