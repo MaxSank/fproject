@@ -4,6 +4,8 @@
 
     {{ 'page_of_user_text'|trans }}
 
+
+    {#
     {% for single_collection in collections %}
     <div class="card border-dark mb-3">
     <div class="card-header">
@@ -11,9 +13,54 @@
     </div>
     <div class="card-body text-dark">
 
-    <div>{{ single_collection.description  }}</div>
+    <div>{{ single_collection.description }}</div>
     </div>
     </div>
     {% endfor %}
+    #}
+    <div>
+    {% if collections|length > 0 %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Created at</th>
+            {% if app.user.id == owner_id %}
+            <th>Change link</th>
+            {% endif %}
+        </tr>
+        </thead>
 
+        {% for single_collection in collections %}
+        {% if (loop.index) == 1 %}
+            {% set color = 'red' %}
+        {% elseif loop.index is divisible by(2) %}
+            {% set color = 'grey' %}
+        {% else %}
+            {% set color = 'white' %}
+        {% endif %}
+
+        {# {% set color = (loop.index) == 1 ? 'red' %} #}
+        <tr style="background: {{ color }};">
+            <td>{{ loop.index }}</td>
+            <td>{{ single_collection.name }}</td>
+            <td>{{ single_collection.description }}</td>
+            <td>{{ single_collection.createdat|date('Y-m-d H:i:s') }}</td>
+            {% if app.user.id == owner_id %}
+                <td><a href="#">Link</a></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        No collections!
+    {% endif %}
+    </div>
+
+{% endblock %}
+
+{% block footer %}
+    {{ owner_name }}
 {% endblock %}

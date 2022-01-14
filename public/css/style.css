@@ -1,3 +1,30 @@
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+main {
+    flex: 1 0 auto;
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+footer {
+    flex: 0 0 auto;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 15px;
+}
+
 /* Width of registration and authorisation form */
 form[name*="registration_form"]{
     max-width: 500px;
@@ -7,9 +34,9 @@ form[name*="authorisation_form"]{
     max-width: 500px;
 }
 
- form[name*="create_item_collection_form"]{
-     max-width: 500px;
- }
+form[name*="create_item_collection_form"]{
+    max-width: 500px;
+}
 
 /*Align of user's name and text inside buttons*/
 span.me-2 {

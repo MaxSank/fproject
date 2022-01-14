@@ -6,6 +6,8 @@ use App\Controller\Main\BaseController;
 use App\Entity\ItemCollection;
 use App\Form\CreateItemCollectionFormType;
 use App\Repository\UserRepository;
+use DateTime;
+use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -48,6 +50,9 @@ class CreateItemCollectionController extends BaseController
 
             $user = $this->userRepository->find($user_id);
             $collection->setUserId($user);
+
+            $currentTime = new DateTime('now', new DateTimeZone('Europe/Minsk'));
+            $collection->setCreatedAt($currentTime);
 
             if ($form->isSubmitted() && $form->isValid()) {
 

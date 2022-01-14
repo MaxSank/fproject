@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ItemCollectionRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -29,6 +30,9 @@ class ItemCollection
     #[Assert\NotBlank(message: 'Please enter a description for the collection')]
     #[ORM\Column(type: 'text')]
     private string $description;
+
+    #[ORM\Column(type: "datetime")]
+    private DateTime $createdAt;
 
     public function getId(): int
     {
@@ -69,5 +73,21 @@ class ItemCollection
         $this->description = $description;
 
         return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getCreatedAt(): DateTime
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param DateTime $createdAt
+     */
+    public function setCreatedAt(DateTime $createdAt): void
+    {
+        $this->createdAt = $createdAt;
     }
 }
