@@ -81,10 +81,18 @@
         <source>Create collection</source>
         <target>Создать коллекцию</target>
       </trans-unit>
-      <trans-unit id="12345" resname="Login to your account or register!">
-              <source>Login to your account or register!</source>
-              <target>Войдите в свой аккаунт или зарегистрируйтесь!</target>
-            </trans-unit>
+      <trans-unit id="LKJ5XBx" resname="Login to your account or register!">
+        <source>Login to your account or register!</source>
+        <target>Войдите в свой аккаунт или зарегистрируйтесь!</target>
+      </trans-unit>
+      <trans-unit id="qixEZdu" resname="No collections.">
+        <source>No collections.</source>
+        <target>Нет коллекций.</target>
+      </trans-unit>
+      <trans-unit id="TYneyWf" resname="Select a theme for the collection:">
+        <source>Select a theme for the collection:</source>
+        <target>Выберете тему для коллекции:</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

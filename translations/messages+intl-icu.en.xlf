@@ -81,10 +81,18 @@
         <source>Create collection</source>
         <target>Create collection</target>
       </trans-unit>
-      <trans-unit id="12345" resname="Login to your account or register!">
-              <source>Login to your account or register!</source>
-              <target>Login to your account or register!</target>
-            </trans-unit>
+      <trans-unit id="LKJ5XBx" resname="Login to your account or register!">
+        <source>Login to your account or register!</source>
+        <target>Login to your account or register!</target>
+      </trans-unit>
+      <trans-unit id="qixEZdu" resname="No collections.">
+        <source>No collections.</source>
+        <target>No collections.</target>
+      </trans-unit>
+      <trans-unit id="TYneyWf" resname="Select a theme for the collection:">
+        <source>Select a theme for the collection:</source>
+        <target>Select a theme for the collection:</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -3,21 +3,33 @@
 {% block body %}
 
     {{ 'page_of_user_text'|trans }}
+    <hr>
 
 
-    {#
-    {% for single_collection in collections %}
-    <div class="card border-dark mb-3">
-    <div class="card-header">
-        <div>{{ single_collection.name }}</div>
-    </div>
-    <div class="card-body text-dark">
+    <div>
+    {% if collections|length > 0 %}
+        {% for single_collection in collections %}
+        <div class="card border-dark mb-3">
+        <div class="card-header">
+            <h4>{{ single_collection.name }}</h4>
+            <div>{{ single_collection.userId.name }}</div>
+            <div>{{ single_collection.theme|trans }}</div>
+            <div>{{ single_collection.createdat|date('Y-m-d H:i') }}</div>
+        </div>
+        <div class="card-body text-dark">
 
-    <div>{{ single_collection.description }}</div>
+            {{ single_collection.description|markdown_to_html }}
+
+        </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        {{ 'No collections.'|trans }}
+    {% endif %}
     </div>
-    </div>
-    {% endfor %}
-    #}
+
+
+{#
     <div>
     {% if collections|length > 0 %}
     <table class="table">
@@ -41,9 +53,9 @@
         {% else %}
             {% set color = 'white' %}
         {% endif %}
-
+#}
         {# {% set color = (loop.index) == 1 ? 'red' %} #}
-        <tr style="background: {{ color }};">
+{#        <tr style="background: {{ color }};">
             <td>{{ loop.index }}</td>
             <td>{{ single_collection.name }}</td>
             <td>{{ single_collection.description }}</td>
@@ -55,12 +67,9 @@
         {% endfor %}
     </table>
     {% else %}
-        No collections!
+        No collections.
     {% endif %}
     </div>
+#}
 
-{% endblock %}
-
-{% block footer %}
-    {{ owner_name }}
 {% endblock %}

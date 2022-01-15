@@ -20,6 +20,7 @@ class CreateItemCollectionController extends BaseController
 
     private $em;
     private $tokenStorage;
+    private $userRepository;
 
     public function __construct(
         TokenStorageInterface $tokenStorage,

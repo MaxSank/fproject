@@ -17,7 +17,7 @@ class ItemCollection
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private int $id;
 
     #[Assert\NotBlank(message: 'Please enter a name for the collection')]
     #[ORM\Column(type: 'string', length: 100)]
@@ -33,6 +33,9 @@ class ItemCollection
 
     #[ORM\Column(type: "datetime")]
     private DateTime $createdAt;
+
+    #[ORM\Column(type: 'string', length: 100)]
+    private string $theme;
 
     public function getId(): int
     {
@@ -89,5 +92,17 @@ class ItemCollection
     public function setCreatedAt(DateTime $createdAt): void
     {
         $this->createdAt = $createdAt;
+    }
+
+    public function getTheme(): string
+    {
+        return $this->theme;
+    }
+
+    public function setTheme(string $theme): self
+    {
+        $this->theme = $theme;
+
+        return $this;
     }
 }
