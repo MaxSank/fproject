@@ -115,6 +115,19 @@
     "nikic/php-parser": {
         "version": "v4.13.2"
     },
+    "oneup/uploader-bundle": {
+        "version": "3.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "2.0",
+            "ref": "b19678d1535b9fe7cdf4647fd3483455e4fca458"
+        },
+        "files": [
+            "./config/packages/oneup_uploader.yaml",
+            "./config/routes/oneup_uploader.yaml"
+        ]
+    },
     "phar-io/manifest": {
         "version": "2.0.3"
     },
@@ -526,6 +539,9 @@
     },
     "symfony/string": {
         "version": "v5.4.2"
+    },
+    "symfony/templating": {
+        "version": "v5.4.0"
     },
     "symfony/translation": {
         "version": "5.4",
