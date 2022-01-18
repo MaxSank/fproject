@@ -57,10 +57,6 @@
         <source>Registration</source>
         <target>Регистрация</target>
       </trans-unit>
-      <trans-unit id="HFc1_gs" resname="page_of_user_text">
-        <source>page_of_user_text</source>
-        <target>Текст на странице пользователя</target>
-      </trans-unit>
       <trans-unit id="tRLZfny" resname="User">
         <source>User</source>
         <target>Пользователь</target>

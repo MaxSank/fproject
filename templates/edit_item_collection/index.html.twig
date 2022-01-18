@@ -1,0 +1,22 @@
+{% extends 'main/base.html.twig' %}
+
+{% block body %}
+
+    <div class="container">
+        {% if app.user %}
+            <h3 class="mb-3">{{ 'Edit collection'|trans }}</h3>
+
+            {{ form_start(editItemCollectionForm) }}
+            {{ form_errors(editItemCollectionForm) }}
+            {{ form_row(editItemCollectionForm.name) }}
+            {{ form_row(editItemCollectionForm.description) }}
+            {{ form_row(editItemCollectionForm.theme) }}
+
+            <button type="submit" class="btn btn-success mt-3">{{ 'Save'|trans }}</button>
+            {{ form_end(editItemCollectionForm) }}
+        {% else %}
+            {{ 'Login to your account or register!'|trans }}
+        {% endif %}
+    </div>
+
+{% endblock %}

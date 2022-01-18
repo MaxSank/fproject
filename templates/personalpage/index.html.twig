@@ -1,28 +1,51 @@
 {% extends 'main/base.html.twig' %}
 
-{% block body %}
 
-    {{ 'page_of_user_text'|trans }}
+{% block body %}
+    {% if app.user %}
+        <div>{{ 'page_of_user'|trans }}{{ owner_name }}</div>
+
+        {% if owner_id == app.user.id %}
+        <div>{{ 'page_of_user_text'|trans }}</div>
+        {% elseif 'ROLE_ADMIN' in app.user.roles %}
+        <div>{{ 'page_of_user_admin'|trans }}</div>
+        {% endif %}
+
+        <div>
+            {% if owner_id == app.user.id or 'ROLE_ADMIN' in app.user.roles %}
+                <a href="{{ path('create_item_collection', {name: owner_name}) }}">{{ 'Create collection'|trans }}</a>
+            {% endif %}
+        </div>
+    {% endif %}
     <hr>
 
-
     <div>
-    {% if collections|length > 0 %}
+    {% if collections %}
         {% for single_collection in collections %}
-        <div class="card border-dark mb-3">
-        <div class="card-header">
-            <h4>{{ single_collection.name }}</h4>
-            <div>{{ single_collection.userId.name }}</div>
-            <div>{{ single_collection.theme|trans }}</div>
-            <div>{{ single_collection.createdat|date('Y-m-d H:i') }}</div>
-        </div>
-        <div class="card-body text-dark">
 
-            {{ single_collection.description|markdown_to_html }}
+                <div class="card border-dark mb-3">
+                <div class="card-header">
+                    <h4 class="d-inline">{{ single_collection.name }}</h4>
+                    {% if app.user %}
+                    {% if single_collection.userId.id == app.user.id or 'ROLE_ADMIN' in app.user.roles %}
+                    <a href="{{ path('edit_item_collection', {id: single_collection.id, name: owner_name}) }}" class="d-inline p-1">{{ 'Edit'|trans }}</a>
+                    <a href="{{ path('delete_item_collection', {id: single_collection.id}) }}" class="d-inline p-1">{{ 'Delete'|trans }}</a>
+                    {% endif %}
+                    {% endif %}
 
-        </div>
-        </div>
+                    <div>{{ single_collection.userId.name }}</div>
+                    <div>{{ single_collection.theme|trans }}</div>
+                    <div>{{ single_collection.createdat|date('Y-m-d H:i') }}</div>
+                </div>
+                <div class="card-body text-dark">
+
+                    {{ single_collection.description|markdown_to_html }}
+
+                </div>
+                </div>
+
         {% endfor %}
+
     {% else %}
         {{ 'No collections.'|trans }}
     {% endif %}

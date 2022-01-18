@@ -1,43 +1,37 @@
 <?php
 
-namespace App\Controller\Create;
+namespace App\Controller\Edit;
 
 use App\Controller\Main\BaseController;
-use App\Entity\ItemCollection;
 use App\Form\CreateItemCollectionFormType;
+use App\Repository\ItemCollectionRepository;
 use App\Repository\UserRepository;
-use DateTime;
-use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-
-class CreateItemCollectionController extends BaseController
+class EditItemCollectionController extends BaseController
 {
 
     private $em;
     private $tokenStorage;
-    private $userRepository;
 
     public function __construct(
         TokenStorageInterface $tokenStorage,
         EntityManagerInterface $em,
-        UserRepository $userRepository,
     ) {
         $this->tokenStorage = $tokenStorage;
         $this->em = $em;
-        $this->userRepository = $userRepository;
     }
 
-    #[Route('/{_locale<%app.supported_locales%>}/user-{name}/create-collection', name: 'create_item_collection')]
-    public function index($name, Request $request): Response
+    #[Route('/{_locale<%app.supported_locales%>}/user-{name}/edit-collection/{id}', name: 'edit_item_collection')]
+    public function index($id, $name, Request $request, ItemCollectionRepository $itemCollectionRepository): Response
     {
         $forRender = parent::renderDefault();
-        $forRender['controller_name'] = 'CreateItemCollectionController';
-        $forRender['title'] = 'Create collection';
+        $forRender['controller_name'] = 'EditItemCollectionController';
+        $forRender['title'] = 'Edit collection';
 
         $token = $this->tokenStorage->getToken();
 
@@ -47,16 +41,10 @@ class CreateItemCollectionController extends BaseController
             $userIdentifier = $token->getUser()->getUserIdentifier();
 
             if ($name == $userIdentifier or in_array('ROLE_ADMIN', $userRoles)) {
-                $collection = new ItemCollection();
+                $collection = $itemCollectionRepository->find($id);
                 $form = $this->createForm(CreateItemCollectionFormType::class, $collection);
-                $forRender['createItemCollectionForm'] = $form->createView();
+                $forRender['editItemCollectionForm'] = $form->createView();
                 $form->handleRequest($request);
-
-                $user = $this->userRepository->findOneBy(array('name' => $name));
-                $collection->setUserId($user);
-
-                $currentTime = new DateTime('now', new DateTimeZone('Europe/Minsk'));
-                $collection->setCreatedAt($currentTime);
 
                 if ($form->isSubmitted() && $form->isValid()) {
 
@@ -69,12 +57,13 @@ class CreateItemCollectionController extends BaseController
                 }
             } else {
                 return $this->redirectToRoute('home');
+
             }
         } else {
             return $this->redirectToRoute('home');
         }
 
 
-        return $this->render('create_item_collection/index.html.twig', $forRender);
+        return $this->render('edit_item_collection/index.html.twig', $forRender);
     }
 }

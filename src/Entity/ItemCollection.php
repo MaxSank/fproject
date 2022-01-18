@@ -37,6 +37,11 @@ class ItemCollection
     #[ORM\Column(type: 'string', length: 100)]
     private string $theme;
 
+    public function __toString(): string
+    {
+        return $this->name.' '.$this->id;
+    }
+
     public function getId(): int
     {
         return $this->id;

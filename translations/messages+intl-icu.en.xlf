@@ -25,10 +25,6 @@
         <source>Registration</source>
         <target>Registration</target>
       </trans-unit>
-      <trans-unit id="HFc1_gs" resname="page_of_user_text">
-        <source>page_of_user_text</source>
-        <target>Text on the page of user</target>
-      </trans-unit>
       <trans-unit id="emYoaaa" resname="Registration Form">
         <source>Registration Form</source>
         <target>Registration Form</target>

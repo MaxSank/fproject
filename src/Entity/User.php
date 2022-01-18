@@ -57,7 +57,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: "string", length: 180)]
     private $status;
 
-
+    public function __toString(): string
+    {
+        return $this->name;
+    }
 
     public function getId(): int
     {
