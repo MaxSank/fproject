@@ -50,13 +50,16 @@ class CreateItemCollectionAttributeController extends BaseController
             $collection = $this->itemCollectionRepository->find($collection_id);
 
             $collection_name = $collection->getName();
+            $collection_owner = $collection->getUserId()->getUserIdentifier();
             $forRender['collection_name'] = $collection_name;
             /*var_dump($collection_id, $collection, $collection_name);*/
 
             $number_of_attribute = count($this->itemCollectionAttributeRepository->findBy(['itemCollection' => $collection])) + 1;
             $forRender['number_of_attribute'] = $number_of_attribute;
 
-            if ($name == $userIdentifier or in_array('ROLE_ADMIN', $userRoles) and !empty($collection_name)) {
+            if (($name == $userIdentifier or in_array('ROLE_ADMIN', $userRoles))
+                and $name == $collection_owner
+                and !empty($collection_name)) {
 
 
                 $attribute = new ItemCollectionAttribute();
