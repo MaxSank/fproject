@@ -1,0 +1,24 @@
+{% extends 'main/base.html.twig' %}
+
+{% block body %}
+
+    <div class="container">
+        {% if app.user %}
+            <h3 class="mb-3">{{ 'Create attribute'|trans }} №{{ number_of_attribute }} {{ 'for collection'|trans }} {{ collection_name }}</h3>
+
+            {{ form_start(createItemCollectionAttributeForm) }}
+            {{ form_errors(createItemCollectionAttributeForm) }}
+            {{ form_row(createItemCollectionAttributeForm.name) }}
+            {{ form_row(createItemCollectionAttributeForm.attributeType) }}
+
+            <div>
+                <button type="submit" class="btn btn-success mt-3">{{ 'Create attribute for collection'|trans }}</button>
+                {{ form_end(createItemCollectionAttributeForm) }}
+                <a type="button" class="btn btn-outline-primary mt-3" href="{{ path('user', {name: name}) }}">{{ 'Back to personal page'|trans }}</a>
+            </div>
+        {% else %}
+            {{ 'Error!'|trans }}
+        {% endif %}
+    </div>
+
+{% endblock %}

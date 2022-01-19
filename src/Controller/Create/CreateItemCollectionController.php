@@ -52,19 +52,20 @@ class CreateItemCollectionController extends BaseController
                 $forRender['createItemCollectionForm'] = $form->createView();
                 $form->handleRequest($request);
 
-                $user = $this->userRepository->findOneBy(array('name' => $name));
-                $collection->setUserId($user);
-
-                $currentTime = new DateTime('now', new DateTimeZone('Europe/Minsk'));
-                $collection->setCreatedAt($currentTime);
-
                 if ($form->isSubmitted() && $form->isValid()) {
+
+                    $user = $this->userRepository->findOneBy(array('name' => $name));
+                    $collection->setUserId($user);
+
+                    $currentTime = new DateTime('now', new DateTimeZone('Europe/Minsk'));
+                    $collection->setCreatedAt($currentTime);
 
                     $this->em->persist($collection);
                     $this->em->flush();
 
-                    return $this->redirectToRoute('user', [
+                    return $this->redirectToRoute('create_attribute', [
                         'name' => $name,
+                        'collection_id' => $collection->getId(),
                     ]);
                 }
             } else {
@@ -77,4 +78,5 @@ class CreateItemCollectionController extends BaseController
 
         return $this->render('create_item_collection/index.html.twig', $forRender);
     }
+
 }

@@ -5,7 +5,6 @@ namespace App\Controller\Edit;
 use App\Controller\Main\BaseController;
 use App\Form\CreateItemCollectionFormType;
 use App\Repository\ItemCollectionRepository;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -48,7 +47,6 @@ class EditItemCollectionController extends BaseController
 
                 if ($form->isSubmitted() && $form->isValid()) {
 
-                    $this->em->persist($collection);
                     $this->em->flush();
 
                     return $this->redirectToRoute('user', [

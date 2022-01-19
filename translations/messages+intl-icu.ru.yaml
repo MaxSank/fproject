@@ -19,3 +19,17 @@ Edit collection: Изменить коллекцию
 page_of_user_text: 'Привет! Для создания коллекции нажмите ниже:'
 page_of_user_admin: 'Добрый день, администратор! Для создания коллекции нажмите ниже:'
 page_of_user: 'Page of '
+
+'Enter a name for the attribute ': 'Введите имя аттрибута '
+'Select a type for the attribute ': 'Выберете тип аттрибута '
+Number: Число
+Text: Текст
+Text area: Текстовое поле
+Date: Дата
+Checkbox: Чекбокс
+
+Create attribute: Создать атрибут
+for collection: для коллекции
+Create attribute for collection: Создать атрибут для коллекции
+Back to personal page: Назад к персональной странице
+Error!: Ошибка!

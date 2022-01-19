@@ -8,12 +8,13 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
-
 {% endblock javascripts %}
 
 {% block body %}
 
     <div class="container">
+
+
         {% if app.user %}
         <h3 class="mb-3">{{ 'Create collection'|trans }}</h3>
 
@@ -22,7 +23,9 @@
         {{ form_row(createItemCollectionForm.name) }}
         {{ form_row(createItemCollectionForm.description) }}
         {{ form_row(createItemCollectionForm.theme) }}
-        <div class="form-group row">
+
+        {#
+        <div class="createItemCollectionForm-group row">
             <div>
                 <label>
                     {{ 'Image to add:'|trans }}
@@ -44,8 +47,12 @@
                 </script>
             </div>
         </div>
+        #}
 
+
+        <div>
         <button type="submit" class="btn btn-success mt-3">{{ 'Create collection'|trans }}</button>
+        </div>
         {{ form_end(createItemCollectionForm) }}
         {% else %}
         {{ 'Login to your account or register!'|trans }}
