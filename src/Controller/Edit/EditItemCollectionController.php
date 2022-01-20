@@ -32,35 +32,29 @@ class EditItemCollectionController extends BaseController
         $forRender['controller_name'] = 'EditItemCollectionController';
         $forRender['title'] = 'Edit collection';
 
-        $token = $this->tokenStorage->getToken();
+        if (!$token = $this->tokenStorage->getToken()) {
+            return $this->redirectToRoute('home');
+        }
+        $userRoles = $token->getUser()->getRoles();
+        $userIdentifier = $token->getUser()->getUserIdentifier();
 
-        if ($token != null) {
-
-            $userRoles = $token->getUser()->getRoles();
-            $userIdentifier = $token->getUser()->getUserIdentifier();
-
-            if ($name == $userIdentifier or in_array('ROLE_ADMIN', $userRoles)) {
-                $collection = $itemCollectionRepository->find($id);
-                $form = $this->createForm(CreateItemCollectionFormType::class, $collection);
-                $forRender['editItemCollectionForm'] = $form->createView();
-                $form->handleRequest($request);
-
-                if ($form->isSubmitted() && $form->isValid()) {
-
-                    $this->em->flush();
-
-                    return $this->redirectToRoute('user', [
-                        'name' => $name,
-                    ]);
-                }
-            } else {
-                return $this->redirectToRoute('home');
-
-            }
-        } else {
+        if ($name != $userIdentifier and !in_array('ROLE_ADMIN', $userRoles)) {
             return $this->redirectToRoute('home');
         }
 
+        $collection = $itemCollectionRepository->find($id);
+        $form = $this->createForm(CreateItemCollectionFormType::class, $collection);
+        $forRender['editItemCollectionForm'] = $form->createView();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $this->em->flush();
+
+            return $this->redirectToRoute('user', [
+                'name' => $name,
+            ]);
+        }
 
         return $this->render('edit_item_collection/index.html.twig', $forRender);
     }

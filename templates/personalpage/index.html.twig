@@ -5,10 +5,10 @@
     {% if app.user %}
         <div>{{ 'page_of_user'|trans }}{{ owner_name }}</div>
 
-        {% if owner_id == app.user.id %}
-        <div>{{ 'page_of_user_text'|trans }}</div>
-        {% elseif 'ROLE_ADMIN' in app.user.roles %}
+        {% if 'ROLE_ADMIN' in app.user.roles %}
         <div>{{ 'page_of_user_admin'|trans }}</div>
+        {% elseif owner_id == app.user.id %}
+        <div>{{ 'page_of_user_text'|trans }}</div>
         {% endif %}
 
         <div>

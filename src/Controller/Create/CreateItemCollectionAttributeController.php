@@ -40,52 +40,52 @@ class CreateItemCollectionAttributeController extends BaseController
         $forRender['title'] = 'Create attribute';
         $forRender['name'] = $name;
 
-        $token = $this->tokenStorage->getToken();
-
-        if ($token != null) {
-            $userRoles = $token->getUser()->getRoles();
-            $userIdentifier = $token->getUser()->getUserIdentifier();
-
-            $collection_id = (int) $request->get('collection_id');
-            $collection = $this->itemCollectionRepository->find($collection_id);
-
-            $collection_name = $collection->getName();
-            $collection_owner = $collection->getUserId()->getUserIdentifier();
-            $forRender['collection_name'] = $collection_name;
-            /*var_dump($collection_id, $collection, $collection_name);*/
-
-            $number_of_attribute = count($this->itemCollectionAttributeRepository->findBy(['itemCollection' => $collection])) + 1;
-            $forRender['number_of_attribute'] = $number_of_attribute;
-
-            if (($name == $userIdentifier or in_array('ROLE_ADMIN', $userRoles))
-                and $name == $collection_owner
-                and !empty($collection_name)) {
-
-
-                $attribute = new ItemCollectionAttribute();
-                $form = $this->createForm(CreateItemCollectionAttributeFormType::class, $attribute);
-                $forRender['createItemCollectionAttributeForm'] = $form->createView();
-                $form->handleRequest($request);
-
-                if ($form->isSubmitted() && $form->isValid()) {
-
-                    $attribute->setItemCollection($collection);
-
-                    $this->em->persist($attribute);
-                    $this->em->flush();
-
-                    return $this->redirectToRoute('create_attribute', [
-                        'name' => $name,
-                        'collection_id' => $collection_id,
-                    ]);
-                }
-            } else {
-                return $this->redirectToRoute('home');
-            }
-        } else {
+        if (!$token = $this->tokenStorage->getToken()) {
             return $this->redirectToRoute('home');
         }
 
+        $userRoles = $token->getUser()->getRoles();
+        $userIdentifier = $token->getUser()->getUserIdentifier();
+
+        $collection_id = (int) $request->get('collection_id');
+        if ($collection_id == 0) {
+            return $this->redirectToRoute('home');
+        }
+
+        $collection = $this->itemCollectionRepository->find($collection_id);
+        $collection_name = $collection->getName();
+        $collection_owner = $collection->getUserId()->getUserIdentifier();
+        $forRender['collection_name'] = $collection_name;
+        /*var_dump($collection_id, $collection, $collection_name);*/
+
+        $number_of_attribute = count($this->itemCollectionAttributeRepository->findBy(['itemCollection' => $collection])) + 1;
+        $forRender['number_of_attribute'] = $number_of_attribute;
+
+        if (($name != $userIdentifier and !in_array('ROLE_ADMIN', $userRoles))
+            or $name != $collection_owner
+            or empty($collection_name)
+
+        ) {
+            return $this->redirectToRoute('home');
+        }
+
+        $attribute = new ItemCollectionAttribute();
+        $form = $this->createForm(CreateItemCollectionAttributeFormType::class, $attribute);
+        $forRender['createItemCollectionAttributeForm'] = $form->createView();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $attribute->setItemCollection($collection);
+
+            $this->em->persist($attribute);
+            $this->em->flush();
+
+            return $this->redirectToRoute('create_attribute', [
+                'name' => $name,
+                'collection_id' => $collection_id,
+            ]);
+        }
 
         return $this->render('create_item_collection/attribute.html.twig', $forRender);
     }

@@ -39,42 +39,37 @@ class CreateItemCollectionController extends BaseController
         $forRender['controller_name'] = 'CreateItemCollectionController';
         $forRender['title'] = 'Create collection';
 
-        $token = $this->tokenStorage->getToken();
+        if (!$token = $this->tokenStorage->getToken()) {
+            return $this->redirectToRoute('home');
+        }
+        $userRoles = $token->getUser()->getRoles();
+        $userIdentifier = $token->getUser()->getUserIdentifier();
 
-        if ($token != null) {
-
-            $userRoles = $token->getUser()->getRoles();
-            $userIdentifier = $token->getUser()->getUserIdentifier();
-
-            if ($name == $userIdentifier or in_array('ROLE_ADMIN', $userRoles)) {
-                $collection = new ItemCollection();
-                $form = $this->createForm(CreateItemCollectionFormType::class, $collection);
-                $forRender['createItemCollectionForm'] = $form->createView();
-                $form->handleRequest($request);
-
-                if ($form->isSubmitted() && $form->isValid()) {
-
-                    $user = $this->userRepository->findOneBy(array('name' => $name));
-                    $collection->setUserId($user);
-
-                    $currentTime = new DateTime('now', new DateTimeZone('Europe/Minsk'));
-                    $collection->setCreatedAt($currentTime);
-
-                    $this->em->persist($collection);
-                    $this->em->flush();
-
-                    return $this->redirectToRoute('create_attribute', [
-                        'name' => $name,
-                        'collection_id' => $collection->getId(),
-                    ]);
-                }
-            } else {
-                return $this->redirectToRoute('home');
-            }
-        } else {
+        if ($name != $userIdentifier and !in_array('ROLE_ADMIN', $userRoles)) {
             return $this->redirectToRoute('home');
         }
 
+        $collection = new ItemCollection();
+        $form = $this->createForm(CreateItemCollectionFormType::class, $collection);
+        $forRender['createItemCollectionForm'] = $form->createView();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $user = $this->userRepository->findOneBy(array('name' => $name));
+            $collection->setUserId($user);
+
+            $currentTime = new DateTime('now', new DateTimeZone('Europe/Minsk'));
+            $collection->setCreatedAt($currentTime);
+
+            $this->em->persist($collection);
+            $this->em->flush();
+
+            return $this->redirectToRoute('create_attribute', [
+                'name' => $name,
+                'collection_id' => $collection->getId(),
+            ]);
+        }
 
         return $this->render('create_item_collection/index.html.twig', $forRender);
     }
