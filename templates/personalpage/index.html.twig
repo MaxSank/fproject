@@ -2,23 +2,26 @@
 
 
 {% block body %}
+    <div>
+        <h3>{{ 'page_of_user'|trans }} {{ owner_name }}</h3>
+    </div>
     {% if app.user %}
-        <div>
-            <h3>{{ 'page_of_user'|trans }} {{ owner_name }}</h3>
-        </div>
-
         {% if 'ROLE_ADMIN' in app.user.roles %}
         <div>{{ 'page_of_user_admin'|trans }}</div>
         {% elseif owner_id == app.user.id %}
         <div>{{ 'page_of_user_text'|trans }}</div>
         {% endif %}
-
-        <div>
+    {% endif %}
+    <div>
+        {% if app.user %}
             {% if owner_id == app.user.id or 'ROLE_ADMIN' in app.user.roles %}
                 <a type="button" class="btn btn-outline-primary mt-1" href="{{ path('create_item_collection', {name: owner_name}) }}">{{ 'Create collection'|trans }}</a>
             {% endif %}
-        </div>
-    {% endif %}
+        {% endif %}
+        <a type="button" class="btn btn-outline-primary mt-1" href="{{ path('home') }}">{{ 'Back to main page'|trans }}</a>
+    </div>
+
+
     <hr>
 
     <div>

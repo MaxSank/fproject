@@ -11,19 +11,18 @@
 {% endblock javascripts %}
 
 {% block body %}
-
+    <div>
+        <h3>{{ 'Collection'|trans }} {{ collection_name }} {{ 'of user'|trans }} {{ owner_name }}</h3>
+    </div>
+    <div>
     {% if app.user %}
-        <div>
-            <h3>{{ 'Collection'|trans }} {{ collection_name }} {{ 'of user'|trans }} {{ owner_name }}</h3>
-        </div>
-
-        <div>
-            {% if owner_id == app.user.id or 'ROLE_ADMIN' in app.user.roles %}
-                <a type="button" class="btn btn-outline-primary mt-1" href="{{ path('create_item', {name: owner_name, id: collection_id}) }}">{{ 'Create item'|trans }}</a>
-                <a type="button" class="btn btn-outline-primary mt-1" href="{{ path('user', {name: owner_name}) }}">{{ 'Back to personal page'|trans }}</a>
-            {% endif %}
-        </div>
+        {% if owner_id == app.user.id or 'ROLE_ADMIN' in app.user.roles %}
+            <a type="button" class="btn btn-outline-primary mt-1" href="{{ path('create_item', {name: owner_name, id: collection_id}) }}">{{ 'Create item'|trans }}</a>
+        {% endif %}
     {% endif %}
+
+    <a type="button" class="btn btn-outline-primary mt-1" href="{{ path('user', {name: owner_name}) }}">{{ 'Back to personal page'|trans }}</a>
+    </div>
     <hr>
 
 

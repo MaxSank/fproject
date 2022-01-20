@@ -16,9 +16,10 @@ Edit: Edit
 Delete: Delete
 Save: Save
 Edit collection: Edit collection
-page_of_user_text: 'Hello! Click below to create a collection:'
-page_of_user_admin: 'Good day, administrator! Click below to create a collection:'
+page_of_user_text: 'Hello!'
+page_of_user_admin: 'Good day, administrator!'
 page_of_user: 'Page of user'
+Back to main page: Back to main page
 
 'Enter a name for the attribute ': 'Enter a name for the attribute '
 'Select a type for the attribute ': 'Select a type for the attribute '
