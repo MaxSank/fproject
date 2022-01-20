@@ -1,0 +1,59 @@
+{% extends 'main/base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+{% endblock stylesheets %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+{% endblock javascripts %}
+
+{% block body %}
+
+    {% if app.user %}
+        <div>
+            <h3>{{ 'Collection'|trans }} {{ collection_name }} {{ 'of user'|trans }} {{ owner_name }}</h3>
+        </div>
+
+        <div>
+            {% if owner_id == app.user.id or 'ROLE_ADMIN' in app.user.roles %}
+                <a type="button" class="btn btn-outline-primary mt-1" href="{{ path('create_item', {name: owner_name, id: collection_id}) }}">{{ 'Create item'|trans }}</a>
+                <a type="button" class="btn btn-outline-primary mt-1" href="{{ path('user', {name: owner_name}) }}">{{ 'Back to personal page'|trans }}</a>
+            {% endif %}
+        </div>
+    {% endif %}
+    <hr>
+
+
+    <div>
+        {% if items %}
+            {% for single_item in items %}
+
+                <div class="card border-dark mb-3">
+                    <div class="card-header">
+                        <h4 class="d-inline">{{ single_item.name }}</h4>
+                        {% if app.user %}
+                            {% if owner_id == app.user.id or 'ROLE_ADMIN' in app.user.roles %}
+                                {#  <a href="{{ path('', {id: single_item.id, name: owner_name}) }}" class="d-inline p-1">{{ 'Edit'|trans }}</a>
+                                <a href="{{ path('', {id: single_item.id}) }}" class="d-inline p-1">{{ 'Delete'|trans }}</a>
+                                #}
+                                Bla
+                            {% endif %}
+                        {% endif %}
+
+                        <div>{{ single_item.createdat|date('Y-m-d H:i') }}</div>
+                        <div>{{ single_item.updatedat|date('Y-m-d H:i') }}</div>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+            {{ 'No items.'|trans }}
+        {% endif %}
+    </div>
+
+
+{% endblock %}

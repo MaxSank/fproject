@@ -31,7 +31,11 @@ class PersonalPageController extends BaseController
         $forRender['title'] = 'Personal page';
 
         $user = $userRepository->findOneBy(array('name' => $name));
+        if (!$user) {
+            return $this->redirectToRoute('home');
+        }
         $userId = $user->getId();
+
         $collections = $itemCollectionRepository->findBy(array('user' => $userId), array('name' => 'ASC'));
         $forRender['collections'] = $collections;
         $forRender['owner_id'] = $userId;
@@ -50,19 +54,25 @@ class PersonalPageController extends BaseController
 
     }
 
-    #[Route("/{_locale<%app.supported_locales%>}/delete-collection/{id}", name: "delete_item_collection", methods: "get")]
+    #[Route("/{_locale<%app.supported_locales%>}/delete-collection-{id}", name: "delete_item_collection", methods: "get")]
     public function deleteItemCollection($id, ItemCollectionRepository $itemCollectionRepository)
     {
         $itemCollection = $itemCollectionRepository->find($id);
         $token = $this->tokenStorage->getToken();
-        if ($itemCollection and $token) {
-            $userId = $token->getUser()->getId();
-            $userRoles = $token->getUser()->getRoles();
-            if ($userId == $itemCollection->getUserId()->getId() or in_array('ROLE_ADMIN', $userRoles)) {
-                $this->em->remove($itemCollection);
-                $this->em->flush();
-            }
+        if (!$token or !$itemCollection) {
+            return $this->redirectToRoute('home');
         }
+
+        $userId = $token->getUser()->getId();
+        $userRoles = $token->getUser()->getRoles();
+        if ($userId != $itemCollection->getUserId()->getId() and !in_array('ROLE_ADMIN', $userRoles)) {
+            return $this->redirectToRoute('home');
+        }
+
+        $this->em->remove($itemCollection);
+        $this->em->flush();
+
+
         return $this->redirectToRoute('user', [
             'name' => $itemCollection->getUserId()->getUserIdentifier(),
         ]);

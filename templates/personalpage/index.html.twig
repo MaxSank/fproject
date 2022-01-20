@@ -3,7 +3,9 @@
 
 {% block body %}
     {% if app.user %}
-        <div>{{ 'page_of_user'|trans }}{{ owner_name }}</div>
+        <div>
+            <h3>{{ 'page_of_user'|trans }} {{ owner_name }}</h3>
+        </div>
 
         {% if 'ROLE_ADMIN' in app.user.roles %}
         <div>{{ 'page_of_user_admin'|trans }}</div>
@@ -13,7 +15,7 @@
 
         <div>
             {% if owner_id == app.user.id or 'ROLE_ADMIN' in app.user.roles %}
-                <a href="{{ path('create_item_collection', {name: owner_name}) }}">{{ 'Create collection'|trans }}</a>
+                <a type="button" class="btn btn-outline-primary mt-1" href="{{ path('create_item_collection', {name: owner_name}) }}">{{ 'Create collection'|trans }}</a>
             {% endif %}
         </div>
     {% endif %}
@@ -25,7 +27,9 @@
 
                 <div class="card border-dark mb-3">
                 <div class="card-header">
-                    <h4 class="d-inline">{{ single_collection.name }}</h4>
+                    <h4 class="d-inline">
+                        <a href="{{ path('item_collection', {id: single_collection.id, name: owner_name}) }}">{{ single_collection.name }}</a>
+                    </h4>
                     {% if app.user %}
                     {% if single_collection.userId.id == app.user.id or 'ROLE_ADMIN' in app.user.roles %}
                     <a href="{{ path('edit_item_collection', {id: single_collection.id, name: owner_name}) }}" class="d-inline p-1">{{ 'Edit'|trans }}</a>

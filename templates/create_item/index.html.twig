@@ -1,0 +1,33 @@
+{% extends 'main/base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+{% endblock stylesheets %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+{% endblock javascripts %}
+
+{% block body %}
+
+    <div class="container">
+
+        {% if app.user %}
+            <h3 class="mb-3">{{ 'Create item'|trans }}</h3>
+
+            {{ form_start(createItemForm) }}
+            {{ form_errors(createItemForm) }}
+            {{ form_row(createItemForm.name) }}
+
+            <div>
+                <button type="submit" class="btn btn-success mt-3">{{ 'Create item'|trans }}</button>
+            </div>
+            {{ form_end(createItemForm) }}
+        {% else %}
+            {{ 'Login to your account or register!'|trans }}
+        {% endif %}
+    </div>
+
+{% endblock %}

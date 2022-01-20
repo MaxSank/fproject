@@ -53,10 +53,14 @@ class CreateItemCollectionAttributeController extends BaseController
         }
 
         $collection = $this->itemCollectionRepository->find($collection_id);
+        $items_in_collection = $collection->getItems();
+        if (count($items_in_collection) > 0) {
+            return $this->redirectToRoute('home');
+        }
         $collection_name = $collection->getName();
         $collection_owner = $collection->getUserId()->getUserIdentifier();
         $forRender['collection_name'] = $collection_name;
-        /*var_dump($collection_id, $collection, $collection_name);*/
+        /*var_dump($collection_id, $collection, $collection_name, $items_in_collection);*/
 
         $number_of_attribute = count($this->itemCollectionAttributeRepository->findBy(['itemCollection' => $collection])) + 1;
         $forRender['number_of_attribute'] = $number_of_attribute;

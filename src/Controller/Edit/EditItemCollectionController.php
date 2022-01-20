@@ -25,7 +25,7 @@ class EditItemCollectionController extends BaseController
         $this->em = $em;
     }
 
-    #[Route('/{_locale<%app.supported_locales%>}/user-{name}/edit-collection/{id}', name: 'edit_item_collection')]
+    #[Route('/{_locale<%app.supported_locales%>}/user-{name}/edit-collection-{id}', name: 'edit_item_collection')]
     public function index($id, $name, Request $request, ItemCollectionRepository $itemCollectionRepository): Response
     {
         $forRender = parent::renderDefault();

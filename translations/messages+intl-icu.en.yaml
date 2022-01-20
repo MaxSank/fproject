@@ -18,7 +18,7 @@ Save: Save
 Edit collection: Edit collection
 page_of_user_text: 'Hello! Click below to create a collection:'
 page_of_user_admin: 'Good day, administrator! Click below to create a collection:'
-page_of_user: 'Page of '
+page_of_user: 'Page of user'
 
 'Enter a name for the attribute ': 'Enter a name for the attribute '
 'Select a type for the attribute ': 'Select a type for the attribute '
@@ -33,3 +33,10 @@ for collection: for collection
 Create attribute for collection: Create attribute for collection
 Back to personal page: Back to personal page
 Error!: Error!
+
+Collection: Collection
+No items.: No items.
+of user: of user
+
+'Enter a name for the item:': 'Enter a name for the item:'
+Create item: Create item
