@@ -41,3 +41,11 @@ of user: of user
 
 'Enter a name for the item:': 'Enter a name for the item:'
 Create item: Create item
+'Created: ': 'Created: '
+'Updated: ': 'Updated: '
+
+'Recently added items:': 'Recently added items:'
+'No recently added items.': 'No recently added items.'
+'Largest number of items:': 'Largest number of items:'
+'in': 'in'
+'No items in collections.': 'No items in collections.'

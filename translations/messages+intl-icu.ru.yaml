@@ -41,3 +41,11 @@ of user: пользователя
 
 'Enter a name for the item:': 'Введите имя предмета:'
 Create item: Создать предмет
+'Created: ': 'Создано: '
+'Updated: ': 'Обновлено: '
+
+'Recently added items:': 'Недавно добавленные предметы:'
+'No Recently added items.': 'Нет недавно добавленных предметов.'
+'Largest number of items:': 'Наибольшее количество предметов:'
+'in': 'в'
+'No items in collections.': 'Нет предметов в коллекции.'

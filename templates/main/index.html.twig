@@ -1,9 +1,38 @@
 {% extends 'main/base.html.twig' %}
 {% block body %}
 
-
-    {% if app.user %}
-        {{ app.user.name }}
+    {% if recent_items %}
+    <h4>{{ 'Recently added items:'| trans }}</h4>
+    <table class="table table-borderless" style="max-width: 300px">
+    {% for single_item in recent_items %}
+        <tr>
+        <td style="padding: 4px">{{ single_item.name }}</td>
+        <td style="padding: 4px">{{ single_item.createdAt|date('Y-m-d H:i') }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+    {% else %}
+        <div>{{ 'No Recently added items.'| trans }}</div>
     {% endif %}
+
+    {% if biggest_collections %}
+        <div style="max-width: 1000px">
+        <h4>{{ 'Largest number of items:'| trans }}</h4>
+            {% set biggest_collections = biggest_collections|slice(0, 5)|filter(v => v.items|length > 0) %}
+
+            {% if biggest_collections %}
+                {% for single_collection in biggest_collections %}
+                    <div style="padding: 4px">{{ single_collection.items|length }} {{ "in"| trans}} <a href="{{ path('item_collection', {id: single_collection.id, name: single_collection.userId.name}) }}">{{ single_collection.name }}</a> {{ "of user"| trans }} <a href="{{ path('user', {name: single_collection.userId.name}) }}">{{ single_collection.userId.name }}</a></div>
+                {% endfor %}
+            {% else %}
+                <div>{{ 'No items in collections.'| trans }}</div>
+            {% endif %}
+        </div>
+    {% else %}
+        <div>{{ 'No collections.'| trans }}</div>
+    {% endif %}
+
+
+
 
 {% endblock %}
