@@ -41,8 +41,8 @@ of user: пользователя
 
 'Enter a name for the item:': 'Введите имя предмета:'
 Create item: Создать предмет
-'Created: ': 'Создано: '
-'Updated: ': 'Обновлено: '
+'Created:': 'Создано:'
+'Updated:': 'Обновлено:'
 
 'Recently added items:': 'Недавно добавленные предметы:'
 'No Recently added items.': 'Нет недавно добавленных предметов.'
