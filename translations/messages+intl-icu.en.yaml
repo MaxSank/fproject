@@ -49,3 +49,20 @@ Create item: Create item
 'Largest number of items:': 'Largest number of items:'
 'in': 'in'
 'No items in collections.': 'No items in collections.'
+
+ID: ID
+Name: Name
+Email: Email
+Roles: Roles
+Registration Date: Registration date
+Last Login Date: Last login date
+Status: Status
+Dashboard: Dashboard
+Users: Users
+Back to the website: Back to the website
+Not blocked: Not blocked
+Blocked: Blocked
+User: User
+Admin: Admin
+Yes: Yes
+No: No

@@ -238,6 +238,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->status = $status;
     }
 
+    public function hasRoleAdmin(): string
+    {
+        return (in_array('ROLE_ADMIN', $this->getRoles())) ? 'Yes' : 'No';
+    }
+
+    public function setHasRoleAdmin($isAdmin)
+    {
+        if ('Yes' === $isAdmin) {
+            $this->setRoles(['ROLE_USER','ROLE_ADMIN']);
+        }
+        elseif ('No' === $isAdmin) {
+            $this->setRoles(['ROLE_USER']);
+        }
+        $this->isAdmin = $isAdmin;
+    }
+
     /**
      * Returning a salt is only needed, if you are not using a modern
      * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.

@@ -49,3 +49,20 @@ Create item: Создать предмет
 'Largest number of items:': 'Наибольшее количество предметов:'
 'in': 'в'
 'No items in collections.': 'Нет предметов в коллекции.'
+
+ID: ID
+Name: Имя
+Email: Email
+Roles: Роли
+Registration Date: Дата регистрации
+Last Login Date: Дата последнего входа
+Status: Статус
+Dashboard: Панель управления
+Users: Пользователи
+Back to the website: Назад к вебсайту
+Not blocked: Не заблокирован
+Blocked: Заблокирован
+User: Пользователь
+Admin: Админ
+Yes: Да
+No: Нет

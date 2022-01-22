@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -23,14 +24,28 @@ class UserCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
+
         return [
             IdField::new('id')->hideOnForm(),
             TextField::new('name'),
             EmailField::new('email'),
-            ArrayField::new('roles'),
-            DateTimeField::new('registration_date'),
-            DateTimeField::new('last_login_date'),
-            TextField::new('status'),
+            ChoiceField::new('hasRoleAdmin', 'Admin')
+                ->setChoices([
+                    'No' => 'No',
+                    'Yes' => 'Yes',
+                ]),
+            DateTimeField::new('registrationDate')
+                ->setSortable(true)
+                ->setFormat('Y-MM-dd HH:mm')
+                ->renderAsText(),
+            DateTimeField::new('lastLoginDate')
+                ->setSortable(true)
+                ->setFormat('Y-MM-dd HH:mm')
+                ->renderAsText(),
+            ChoiceField::new('status')->setChoices([
+                'Not blocked' => 'Not blocked',
+                'Blocked' => 'Blocked'
+            ]),
         ];
     }
 
