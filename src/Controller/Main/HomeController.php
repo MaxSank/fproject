@@ -4,6 +4,8 @@ namespace App\Controller\Main;
 
 use App\Repository\ItemCollectionRepository;
 use App\Repository\ItemRepository;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -22,32 +24,30 @@ class HomeController extends BaseController
      */
     public function index(
         ItemRepository $itemRepository,
-        ItemCollectionRepository $itemCollectionRepository)
+        ItemCollectionRepository $itemCollectionRepository,
+        EntityManagerInterface $em,
+    )
     {
         $forRender = parent::renderDefault();
         $forRender['title'] = 'Welcome!';
 
         $recent_items = $itemRepository->findBy([], ['createdAt' => 'DESC'], 5);
-        if ($recent_items){
+        if ($recent_items) {
             $forRender['recent_items'] = $recent_items;
         }
 
-        /*$forRender['biggest_collections'] = $itemCollectionRepository->findAll();*/
-        $collections = $itemCollectionRepository->findAll();
-        if ($collections) {
-            $collections_size = [];
-            foreach ($collections as $single_collection) {
-                $size = count($single_collection->getItems());
+        $query = $em->createQuery('SELECT IDENTITY(i.itemCollection) FROM App\Entity\Item i');
+        $ids_array = $query->getResult();
+        if ($ids_array) {
+            $ids = array();
+            array_walk_recursive($ids_array, function($item, $key) use (&$ids){
+                $ids[] = $item;
+            });
+            $ids = array_count_values($ids);
+            arsort($ids);
 
-                $collections_size[(string) $single_collection->getId()] =  $size;
-            }
-            arsort($collections_size);
-            $collections_size = array_keys($collections_size);
-
-            $biggest_collections = [];
-            foreach ($collections_size as $single_collection) {
-                $biggest_collections[] = $itemCollectionRepository->find($single_collection);
-            }
+            $collections = array_keys($ids);
+            $biggest_collections = $itemCollectionRepository->findBy(['id' => $collections]);
             $forRender['biggest_collections'] = $biggest_collections;
         }
 
