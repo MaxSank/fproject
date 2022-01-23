@@ -1,0 +1,59 @@
+{% extends 'main/base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+{% endblock stylesheets %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+{% endblock javascripts %}
+
+{% block body %}
+    <div>
+        <h3>{{ item_name }}</h3>
+        <div>{{ 'Collection'|trans }} {{ collection_name }} {{ 'of user'|trans }} {{ owner_name }}</div>
+    </div>
+    <div>
+    {% if app.user %}
+        {% if owner_id == app.user.id or is_granted('ROLE_ADMIN') %}
+            {#
+            <a type="button" class="btn btn-outline-primary mt-1" href="{{ path('create_item', {name: owner_name, id: collection_id}) }}">{{ 'Create item'|trans }}</a>
+            #}
+            Edit Bla
+        {% endif %}
+    {% endif %}
+
+    <a type="button" class="btn btn-outline-primary mt-1" href="{{ path('item_collection', {name: owner_name, id: collection_id}) }}">{{ 'Back to personal page'|trans }}</a>
+    </div>
+    <hr>
+
+    {% if item %}
+    <table class="table" style="border-bottom-width: 1px; max-width: 700px">
+        <tbody>
+        <tr>
+            <td class="column-1">{{ 'Name'|trans }}</td>
+            <td>{{ item_name }}</td>
+        </tr>
+        <tr>
+            <td class="column-1">{{ 'Created'|trans }}</td>
+            <td>{{ item.createdat|date('Y-m-d H:i') }}</td>
+        </tr>
+        <tr>
+            <td class="column-1">{{ 'Updated'|trans }}</td>
+            <td>{{ item.updatedat|date('Y-m-d H:i') }}</td>
+        </tr>
+        {% for single_attribute in attributes %}
+            <tr>
+                <td class="column-1">{{ single_attribute.ItemCollectionAttribute.name }}</td>
+                <td>{{ single_attribute.value }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <div>{{ 'Error!'| trans }}</div>
+    {% endif %}
+
+{% endblock %}

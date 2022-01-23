@@ -41,8 +41,9 @@ of user: of user
 
 'Enter a name for the item:': 'Enter a name for the item:'
 Create item: Create item
-'Created:': 'Created:'
-'Updated:': 'Updated:'
+'Created': 'Created'
+'Updated': 'Updated'
+Item: Item
 
 'Recently added items:': 'Recently added items:'
 'No recently added items.': 'No recently added items.'

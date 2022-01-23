@@ -42,9 +42,13 @@ class ItemCollection
     #[ORM\OneToMany(mappedBy: 'itemCollection', targetEntity: Item::class, orphanRemoval: true)]
     private $items;
 
+    #[ORM\OneToMany(mappedBy: 'itemCollection', targetEntity: ItemCollectionAttribute::class)]
+    private $itemCollectionAttributes;
+
     public function __construct()
     {
         $this->items = new ArrayCollection();
+        $this->itemCollectionAttributes = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -145,6 +149,36 @@ class ItemCollection
             // set the owning side to null (unless already changed)
             if ($item->getItemCollection() === $this) {
                 $item->setItemCollection(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ItemCollectionAttribute[]
+     */
+    public function getItemCollectionAttributes(): Collection
+    {
+        return $this->itemCollectionAttributes;
+    }
+
+    public function addItemCollectionAttribute(ItemCollectionAttribute $itemCollectionAttribute): self
+    {
+        if (!$this->itemCollectionAttributes->contains($itemCollectionAttribute)) {
+            $this->itemCollectionAttributes[] = $itemCollectionAttribute;
+            $itemCollectionAttribute->setitemCollection($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItemCollectionAttribute(ItemCollectionAttribute $itemCollectionAttribute): self
+    {
+        if ($this->itemCollectionAttributes->removeElement($itemCollectionAttribute)) {
+            // set the owning side to null (unless already changed)
+            if ($itemCollectionAttribute->getitemCollection() === $this) {
+                $itemCollectionAttribute->setitemCollection(null);
             }
         }
 

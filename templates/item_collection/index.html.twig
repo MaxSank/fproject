@@ -11,9 +11,16 @@
 {% endblock javascripts %}
 
 {% block body %}
-    <div>
-        <h3>{{ 'Collection'|trans }} {{ collection_name }} {{ 'of user'|trans }} {{ owner_name }}</h3>
+    <div style="display: block">
+        <h3 class="d-inline p-1">{{ 'Collection'|trans }} {{ collection_name }} {{ 'of user'|trans }} {{ owner_name }}</h3>
+        {% if app.user %}
+            {% if owner_id == app.user.id or is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('edit_item_collection', {id: collection_id, name: owner_name}) }}" class="d-inline p-1">{{ 'Edit'|trans }}</a>
+                <a href="{{ path('delete_item_collection', {id: collection_id}) }}" class="d-inline p-1">{{ 'Delete'|trans }}</a>
+            {% endif %}
+        {% endif %}
     </div>
+
     <div>
     {% if app.user %}
         {% if owner_id == app.user.id or is_granted('ROLE_ADMIN') %}
@@ -25,30 +32,32 @@
     </div>
     <hr>
 
-
-    <div>
+    <div >
         {% if items %}
-            {% for single_item in items %}
-
-                <div class="card border-dark mb-3">
-                    <div class="card-header">
-                        <h4 class="d-inline">{{ single_item.name }}</h4>
-                        {% if app.user %}
-                            {% if owner_id == app.user.id or is_granted('ROLE_ADMIN') %}
-                                {#  <a href="{{ path('', {id: single_item.id, name: owner_name}) }}" class="d-inline p-1">{{ 'Edit'|trans }}</a>
-                                <a href="{{ path('', {id: single_item.id}) }}" class="d-inline p-1">{{ 'Delete'|trans }}</a>
-                                #}
-                                Bla
-                            {% endif %}
-                        {% endif %}
-
-                        <div>{{ 'Created:'|trans }} {{ single_item.createdat|date('Y-m-d H:i') }}</div>
-                        <div>{{ 'Updated:'|trans }} {{ single_item.updatedat|date('Y-m-d H:i') }}</div>
-                    </div>
-                </div>
-
+        <table class="table table-striped" style="table-layout: fixed">
+        <thead>
+        <tr>
+            <th>{{ 'Item'|trans }}</th>
+            {% set base_attributes = (items|first).itemCollection.itemCollectionAttributes %}
+            {% for single_base_attribute in base_attributes %}
+            <th>{{ single_base_attribute.name }}</th>
             {% endfor %}
-
+            <th>{{ 'Created'|trans }}</th>
+            <th>{{ 'Updated'|trans }}</th>
+        </tr>
+        </thead>
+        {% for single_item in items %}
+            <tr>
+                <td><a href="{{ path('item', {name: owner_name, collection: collection_id, item: single_item.id}) }}" class="d-inline p-1">{{ single_item.name }}</td>
+                {% set attributes = single_item.itemAttributes %}
+                {% for single_attribute in attributes %}
+                <td>{{ single_attribute.value }}</td>
+                {% endfor %}
+                <td>{{ single_item.createdat|date('Y-m-d H:i') }}</td>
+                <td>{{ single_item.updatedat|date('Y-m-d H:i') }}</td>
+            </tr>
+        {% endfor %}
+        </table>
         {% else %}
             {{ 'No items.'|trans }}
         {% endif %}

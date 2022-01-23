@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ItemRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use DateTime;
 
@@ -26,6 +28,14 @@ class Item
 
     #[ORM\Column(type: 'datetime')]
     private DateTime $updatedAt;
+
+    #[ORM\OneToMany(mappedBy: 'item', targetEntity: ItemAttribute::class, orphanRemoval: true)]
+    private $itemAttributes;
+
+    public function __construct()
+    {
+        $this->itemAttributes = new ArrayCollection();
+    }
 
     public function getId(): int
     {
@@ -88,6 +98,36 @@ class Item
     public function setUpdatedAt(DateTime $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getItemAttributes(): Collection
+    {
+        return $this->itemAttributes;
+    }
+
+    public function addItemAttribute(ItemAttribute $itemAttribute): self
+    {
+        if (!$this->itemAttributes->contains($itemAttribute)) {
+            $this->itemAttributes[] = $itemAttribute;
+            $itemAttribute->setItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItemAttribute(ItemAttribute $itemAttribute): self
+    {
+        if ($this->itemAttributes->removeElement($itemAttribute)) {
+            // set the owning side to null (unless already changed)
+            if ($itemAttribute->getItem() === $this) {
+                $itemAttribute->setItem(null);
+            }
+        }
 
         return $this;
     }

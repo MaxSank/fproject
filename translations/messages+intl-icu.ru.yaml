@@ -17,7 +17,7 @@ Delete: Удалить
 Save: Сохранить
 Edit collection: Изменить коллекцию
 page_of_user_text: 'Привет! Для создания коллекции нажмите ниже:'
-page_of_user_admin: 'Добрый день, администратор! Для создания коллекции нажмите ниже:'
+page_of_user_admin: 'Добрый день, администратор!'
 page_of_user: 'Страница пользователя '
 Back to main page: Назад к главной странице
 
@@ -41,8 +41,9 @@ of user: пользователя
 
 'Enter a name for the item:': 'Введите имя предмета:'
 Create item: Создать предмет
-'Created:': 'Создано:'
-'Updated:': 'Обновлено:'
+'Created': 'Создано'
+'Updated': 'Обновлено'
+Item: Предмет
 
 'Recently added items:': 'Недавно добавленные предметы:'
 'No Recently added items.': 'Нет недавно добавленных предметов.'

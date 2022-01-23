@@ -42,13 +42,28 @@ class ItemCollectionController extends BaseController
             return $this->redirectToRoute('home');
         }
         $collectionId = $itemCollection->getId();
-        $items = $itemRepository->findBy(array('itemCollection' => $collectionId), array('createdAt' => 'ASC'));
+
+        /*$items = $itemRepository->findBy(array('itemCollection' => $collectionId), array('createdAt' => 'ASC'));*/
+
+        $query = $this->em->createQuery(
+            'SELECT i, c, ca, ia
+            FROM App\Entity\Item i
+            INNER JOIN i.itemCollection c
+            INNER JOIN c.itemCollectionAttributes ca
+            INNER JOIN i.itemAttributes ia
+            WHERE (c.id = :collection_id)'
+        );
+        $query->setParameter('collection_id', $collectionId);
+        $items = $query->getResult();
+
+        /*$itemCollectionAttributes = $itemCollectionRepository->findOneBy(['itemCollection' => $collectionId])->getItemCollectionAttributes();*/
 
         $forRender['collection_name'] = $itemCollection->getName();
         $forRender['collection_id'] = $collectionId;
         $forRender['owner_name'] = $user->getUserIdentifier();
         $forRender['owner_id'] = $user->getId();
         $forRender['items'] = $items;
+        /*$forRender['attributes'] = $itemCollectionAttributes;*/
 
         return $this->render('item_collection/index.html.twig', $forRender);
     }
