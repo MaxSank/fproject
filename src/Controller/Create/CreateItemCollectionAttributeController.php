@@ -43,8 +43,6 @@ class CreateItemCollectionAttributeController extends BaseController
         if (!$token = $this->tokenStorage->getToken()) {
             return $this->redirectToRoute('home');
         }
-
-        $userRoles = $token->getUser()->getRoles();
         $userIdentifier = $token->getUser()->getUserIdentifier();
 
         $collection_id = (int) $request->get('collection_id');
@@ -65,7 +63,7 @@ class CreateItemCollectionAttributeController extends BaseController
         $number_of_attribute = count($this->itemCollectionAttributeRepository->findBy(['itemCollection' => $collection])) + 1;
         $forRender['number_of_attribute'] = $number_of_attribute;
 
-        if (($name != $userIdentifier and !in_array('ROLE_ADMIN', $userRoles))
+        if (($name != $userIdentifier and !$this->isGranted('ROLE_ADMIN'))
             or $name != $collection_owner
             or empty($collection_name)
 

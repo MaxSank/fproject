@@ -35,10 +35,9 @@ class EditItemCollectionController extends BaseController
         if (!$token = $this->tokenStorage->getToken()) {
             return $this->redirectToRoute('home');
         }
-        $userRoles = $token->getUser()->getRoles();
         $userIdentifier = $token->getUser()->getUserIdentifier();
 
-        if ($name != $userIdentifier and !in_array('ROLE_ADMIN', $userRoles)) {
+        if ($name != $userIdentifier and !$this->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('home');
         }
 

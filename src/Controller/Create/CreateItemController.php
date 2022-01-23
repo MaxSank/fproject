@@ -4,11 +4,8 @@ namespace App\Controller\Create;
 
 use App\Controller\Main\BaseController;
 use App\Entity\Item;
-use App\Entity\ItemCollection;
-use App\Form\CreateItemCollectionFormType;
 use App\Form\CreateItemFormType;
 use App\Repository\ItemCollectionRepository;
-use App\Repository\UserRepository;
 use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,18 +18,15 @@ class CreateItemController extends BaseController
 {
     private $em;
     private $tokenStorage;
-    private $userRepository;
     private $itemCollectionRepository;
 
     public function __construct(
         TokenStorageInterface $tokenStorage,
         EntityManagerInterface $em,
-        UserRepository $userRepository,
         ItemCollectionRepository $itemCollectionRepository,
     ) {
         $this->tokenStorage = $tokenStorage;
         $this->em = $em;
-        $this->userRepository = $userRepository;
         $this->itemCollectionRepository = $itemCollectionRepository;
     }
 
@@ -47,12 +41,11 @@ class CreateItemController extends BaseController
         if (!$token = $this->tokenStorage->getToken()) {
             return $this->redirectToRoute('home');
         }
-        $userRoles = $token->getUser()->getRoles();
         $userIdentifier = $token->getUser()->getUserIdentifier();
         $collection = $this->itemCollectionRepository->find($id);
 
 
-        if (($name != $userIdentifier and !in_array('ROLE_ADMIN', $userRoles))
+        if (($name != $userIdentifier and !$this->isGranted('ROLE_ADMIN'))
             or $name != $collection->getUserId()->getUserIdentifier()) {
             return $this->redirectToRoute('home');
         }
