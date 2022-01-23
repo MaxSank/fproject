@@ -47,7 +47,18 @@ class HomeController extends BaseController
             arsort($ids);
 
             $collections = array_keys($ids);
-            $biggest_collections = $itemCollectionRepository->findBy(['id' => $collections]);
+            $query = $em->createQuery(
+                'SELECT c, u, i
+                FROM App\Entity\ItemCollection c
+                INNER JOIN c.items i
+                INNER JOIN c.user u
+                WHERE
+                c.id IN (:collection_ids)')
+                ->setParameters(['collection_ids' => $collections]);
+
+            $biggest_collections = $query->getResult();
+
+
             $forRender['biggest_collections'] = $biggest_collections;
         }
 

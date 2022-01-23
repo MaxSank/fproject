@@ -20,6 +20,9 @@
             {{ form_start(createItemForm) }}
             {{ form_errors(createItemForm) }}
             {{ form_row(createItemForm.name) }}
+            {% for attribute in createItemForm.itemAttributes %}
+                {{ form_row(attribute.value) }}
+            {% endfor %}
 
             <div>
                 <button type="submit" class="btn btn-success mt-3">{{ 'Create item'|trans }}</button>
