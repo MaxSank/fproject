@@ -16,7 +16,7 @@
     </div>
     <div>
     {% if app.user %}
-        {% if owner_id == app.user.id or 'ROLE_ADMIN' in app.user.roles %}
+        {% if owner_id == app.user.id or is_granted('ROLE_ADMIN') %}
             <a type="button" class="btn btn-outline-primary mt-1" href="{{ path('create_item', {name: owner_name, id: collection_id}) }}">{{ 'Create item'|trans }}</a>
         {% endif %}
     {% endif %}
@@ -34,7 +34,7 @@
                     <div class="card-header">
                         <h4 class="d-inline">{{ single_item.name }}</h4>
                         {% if app.user %}
-                            {% if owner_id == app.user.id or 'ROLE_ADMIN' in app.user.roles %}
+                            {% if owner_id == app.user.id or is_granted('ROLE_ADMIN') %}
                                 {#  <a href="{{ path('', {id: single_item.id, name: owner_name}) }}" class="d-inline p-1">{{ 'Edit'|trans }}</a>
                                 <a href="{{ path('', {id: single_item.id}) }}" class="d-inline p-1">{{ 'Delete'|trans }}</a>
                                 #}

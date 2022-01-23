@@ -6,7 +6,7 @@
         <h3>{{ 'page_of_user'|trans }} {{ owner_name }}</h3>
     </div>
     {% if app.user %}
-        {% if 'ROLE_ADMIN' in app.user.roles %}
+        {% if is_granted('ROLE_ADMIN') %}
         <div>{{ 'page_of_user_admin'|trans }}</div>
         {% elseif owner_id == app.user.id %}
         <div>{{ 'page_of_user_text'|trans }}</div>
@@ -14,7 +14,7 @@
     {% endif %}
     <div>
         {% if app.user %}
-            {% if owner_id == app.user.id or 'ROLE_ADMIN' in app.user.roles %}
+            {% if owner_id == app.user.id or is_granted('ROLE_ADMIN') %}
                 <a type="button" class="btn btn-outline-primary mt-1" href="{{ path('create_item_collection', {name: owner_name}) }}">{{ 'Create collection'|trans }}</a>
             {% endif %}
         {% endif %}
@@ -34,7 +34,7 @@
                         <a href="{{ path('item_collection', {id: single_collection.id, name: owner_name}) }}">{{ single_collection.name }}</a>
                     </h4>
                     {% if app.user %}
-                    {% if single_collection.userId.id == app.user.id or 'ROLE_ADMIN' in app.user.roles %}
+                    {% if single_collection.userId.id == app.user.id or is_granted('ROLE_ADMIN') %}
                     <a href="{{ path('edit_item_collection', {id: single_collection.id, name: owner_name}) }}" class="d-inline p-1">{{ 'Edit'|trans }}</a>
                     <a href="{{ path('delete_item_collection', {id: single_collection.id}) }}" class="d-inline p-1">{{ 'Delete'|trans }}</a>
                     {% endif %}
