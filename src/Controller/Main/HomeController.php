@@ -36,29 +36,14 @@ class HomeController extends BaseController
             $forRender['recent_items'] = $recent_items;
         }
 
-        $query = $em->createQuery('SELECT IDENTITY(i.itemCollection) FROM App\Entity\Item i');
-        $ids_array = $query->getResult();
-        if ($ids_array) {
-            $ids = array();
-            array_walk_recursive($ids_array, function($item, $key) use (&$ids){
-                $ids[] = $item;
-            });
-            $ids = array_count_values($ids);
-            arsort($ids);
-
-            $collections = array_keys($ids);
-            $query = $em->createQuery(
-                'SELECT c, u, i
+        $query = $em->createQuery(
+            'SELECT c, u, i
                 FROM App\Entity\ItemCollection c
                 INNER JOIN c.items i
-                INNER JOIN c.user u
-                WHERE
-                c.id IN (:collection_ids)')
-                ->setParameters(['collection_ids' => $collections]);
-
-            $biggest_collections = $query->getResult();
-
-
+                INNER JOIN c.user u')
+        ;
+        $biggest_collections = $query->getResult();
+        if ($biggest_collections) {
             $forRender['biggest_collections'] = $biggest_collections;
         }
 

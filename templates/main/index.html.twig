@@ -18,7 +18,7 @@
     {% if biggest_collections %}
         <div style="max-width: 1000px">
         <h4>{{ 'Largest number of items:'| trans }}</h4>
-            {% set biggest_collections = biggest_collections|sort((a, b) => a.items|length <=> b.items|length)|reverse|slice(0, 5) %}
+            {% set biggest_collections = biggest_collections|sort((a, b) => a.items|length <=> b.items|length)|reverse|slice(0, 5)|filter(v => v.items|length > 0) %}
 
             {% if biggest_collections %}
                 {% for single_collection in biggest_collections %}
