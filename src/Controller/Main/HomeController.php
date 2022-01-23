@@ -2,9 +2,7 @@
 
 namespace App\Controller\Main;
 
-use App\Repository\ItemCollectionRepository;
 use App\Repository\ItemRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,7 +22,6 @@ class HomeController extends BaseController
      */
     public function index(
         ItemRepository $itemRepository,
-        ItemCollectionRepository $itemCollectionRepository,
         EntityManagerInterface $em,
     )
     {
@@ -42,9 +39,9 @@ class HomeController extends BaseController
                 INNER JOIN c.items i
                 INNER JOIN c.user u')
         ;
-        $biggest_collections = $query->getResult();
-        if ($biggest_collections) {
-            $forRender['biggest_collections'] = $biggest_collections;
+        $collections = $query->getResult();
+        if ($collections) {
+            $forRender['full_collections'] = $collections;
         }
 
         return $this->render('main/index.html.twig', $forRender);
