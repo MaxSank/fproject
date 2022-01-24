@@ -254,6 +254,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->isAdmin = $isAdmin;
     }
 
+    public function getLink()
+    {
+        $name = $this->getUserIdentifier();
+        return "user-{$name}";
+    }
+
     /**
      * Returning a salt is only needed, if you are not using a modern
      * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.

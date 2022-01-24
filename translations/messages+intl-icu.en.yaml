@@ -44,6 +44,8 @@ Create item: Create item
 'Created': 'Created'
 'Updated': 'Updated'
 Item: Item
+Edit item: Edit item
+Back to collection: Back to collection
 
 'Recently added items:': 'Recently added items:'
 'No recently added items.': 'No recently added items.'
@@ -53,6 +55,7 @@ Item: Item
 
 ID: ID
 Name: Name
+Link: Link
 Email: Email
 Roles: Roles
 Registration Date: Registration date

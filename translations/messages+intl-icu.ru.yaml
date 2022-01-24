@@ -44,6 +44,8 @@ Create item: Создать предмет
 'Created': 'Создано'
 'Updated': 'Обновлено'
 Item: Предмет
+Edit item: Изменить предмет
+Back to collection: Назад к коллекции
 
 'Recently added items:': 'Недавно добавленные предметы:'
 'No Recently added items.': 'Нет недавно добавленных предметов.'
@@ -53,6 +55,7 @@ Item: Предмет
 
 ID: ID
 Name: Имя
+Link: Ссылка
 Email: Email
 Roles: Роли
 Registration Date: Дата регистрации

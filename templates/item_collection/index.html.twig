@@ -44,17 +44,29 @@
             {% endfor %}
             <th>{{ 'Created'|trans }}</th>
             <th>{{ 'Updated'|trans }}</th>
+            {% if app.user %}
+                {% if owner_id == app.user.id or is_granted('ROLE_ADMIN') %}
+                    <th>{{ 'Edit'|trans }}</th>
+                    <th>{{ 'Delete'|trans }}</th>
+                {% endif %}
+            {% endif %}
         </tr>
         </thead>
         {% for single_item in items %}
             <tr>
-                <td><a href="{{ path('item', {name: owner_name, collection: collection_id, item: single_item.id}) }}" class="d-inline p-1">{{ single_item.name }}</td>
+                <td><a href="{{ path('item', {name: owner_name, collection: collection_id, item: single_item.id}) }}" class="d-inline p-1">{{ single_item.name }}</a></td>
                 {% set attributes = single_item.itemAttributes %}
                 {% for single_attribute in attributes %}
                 <td>{{ single_attribute.value }}</td>
                 {% endfor %}
                 <td>{{ single_item.createdat|date('Y-m-d H:i') }}</td>
                 <td>{{ single_item.updatedat|date('Y-m-d H:i') }}</td>
+                {% if app.user %}
+                    {% if owner_id == app.user.id or is_granted('ROLE_ADMIN') %}
+                        <td><a href="{{ path('edit_item', {name: owner_name, collection: collection_id, item: single_item.id}) }}" class="d-inline p-1">{{ 'Edit'|trans }}</a></td>
+                        <td></td>
+                    {% endif %}
+                {% endif %}
             </tr>
         {% endfor %}
         </table>
