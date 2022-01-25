@@ -20,12 +20,7 @@
             {{ form_start(createItemForm) }}
             {{ form_errors(createItemForm) }}
             {{ form_row(createItemForm.name) }}
-            {% for single_base_attribute in base_attributes %}
-
-
-                 {{ form_row(single_base_attribute.value, { 'label': single_base_attribute.name }) }}
-{#{{ form_row(single_attribute.value, { 'label': single_attribute.vars.data.itemCollectionAttribute.name }) }}#}
-            {% endfor %}
+            <div style="display: none">{{ form_row(createItemForm.itemAttributes) }}</div>
 
             <div>
                 <button type="submit" class="btn btn-success mt-3">{{ 'Create item'|trans }}</button>

@@ -31,8 +31,8 @@ class CreateItemController extends BaseController
     }
 
 
-    #[Route('/{_locale<%app.supported_locales%>}/user-{name}/collection-{id}/create-item', name: 'create_item')]
-    public function index($name, $id, Request $request): Response
+    #[Route('/{_locale<%app.supported_locales%>}/user-{name}/collection-{collection_id}/create-item', name: 'create_item')]
+    public function index($name, $collection_id, Request $request): Response
     {
         $forRender = parent::renderDefault();
         $forRender['controller_name'] = 'CreateItemController';
@@ -42,7 +42,7 @@ class CreateItemController extends BaseController
             return $this->redirectToRoute('home');
         }
         $userIdentifier = $token->getUser()->getUserIdentifier();
-        $collection = $this->itemCollectionRepository->find($id);
+        $collection = $this->itemCollectionRepository->find($collection_id);
 
 
         if (($name != $userIdentifier and !$this->isGranted('ROLE_ADMIN'))
@@ -56,7 +56,7 @@ class CreateItemController extends BaseController
             WHERE (ca.itemCollection = :collection_id)'
         );
         $query->setParameters([
-            'collection_id' => $id,
+            'collection_id' => $collection_id,
 
         ]);
         $attributes = $query->getResult();
@@ -78,9 +78,10 @@ class CreateItemController extends BaseController
             $this->em->persist($item);
             $this->em->flush();
 
-            return $this->redirectToRoute('item_collection', [
+            return $this->redirectToRoute('item_attribute_value', [
                 'name' => $name,
-                'id' => $collection->getId(),
+                'collection_id' => $collection->getId(),
+                'item_id' => $item->getId(),
             ]);
         }
 

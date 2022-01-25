@@ -24,9 +24,9 @@ class ItemCollectionController extends BaseController
         $this->em = $em;
     }
 
-    #[Route('/{_locale<%app.supported_locales%>}/user-{name}/collection-{id}', name: 'item_collection')]
+    #[Route('/{_locale<%app.supported_locales%>}/user-{name}/collection-{collection_id}', name: 'item_collection')]
     public function index(string $name,
-                          int $id,
+                          int $collection_id,
                           ItemCollectionRepository $itemCollectionRepository,
                           UserRepository $userRepository,
                           ItemRepository $itemRepository,
@@ -36,30 +36,47 @@ class ItemCollectionController extends BaseController
         $forRender['title'] = 'Collection';
         $forRender['controller_name'] = 'ItemCollectionController';
 
-        $itemCollection = $itemCollectionRepository->find($id);
+        $itemCollection = $itemCollectionRepository->find($collection_id);
         $user = $userRepository->findOneBy(array('name' => $name));
         if (!$user or !$itemCollection) {
             return $this->redirectToRoute('home');
         }
-        $collectionId = $itemCollection->getId();
 
         /*$items = $itemRepository->findBy(array('itemCollection' => $collectionId), array('createdAt' => 'ASC'));*/
+        $check_query = $this->em->createQuery(
+            'SELECT ca
+            FROM App\Entity\ItemCollectionAttribute ca
+            WHERE (ca.itemCollection = :collection_id)'
+        );
+        $check_query->setParameter('collection_id', $collection_id);
+        $attributes = $check_query->getResult();
 
-        $query = $this->em->createQuery(
+        if ($attributes) {
+            $query = $this->em->createQuery(
             'SELECT i, c, ca, ia
             FROM App\Entity\Item i
             INNER JOIN i.itemCollection c
             INNER JOIN c.itemCollectionAttributes ca
             INNER JOIN i.itemAttributes ia
             WHERE (c.id = :collection_id)'
-        );
-        $query->setParameter('collection_id', $collectionId);
-        $items = $query->getResult();
+            );
+            $query->setParameter('collection_id', $collection_id);
+            $items = $query->getResult();
+        } else {
+            $query = $this->em->createQuery(
+                'SELECT i, c
+            FROM App\Entity\Item i
+            INNER JOIN i.itemCollection c
+            WHERE (c.id = :collection_id)'
+            );
+            $query->setParameter('collection_id', $collection_id);
+            $items = $query->getResult();
+        }
 
         /*$itemCollectionAttributes = $itemCollectionRepository->findOneBy(['itemCollection' => $collectionId])->getItemCollectionAttributes();*/
 
         $forRender['collection_name'] = $itemCollection->getName();
-        $forRender['collection_id'] = $collectionId;
+        $forRender['collection_id'] = $collection_id;
         $forRender['owner_name'] = $user->getUserIdentifier();
         $forRender['owner_id'] = $user->getId();
         $forRender['items'] = $items;
@@ -68,10 +85,10 @@ class ItemCollectionController extends BaseController
         return $this->render('item_collection/index.html.twig', $forRender);
     }
 
-    #[Route("/{_locale<%app.supported_locales%>}/delete-collection-{id}", name: "delete_item_collection", methods: "get")]
-    public function deleteItemCollection($id, ItemCollectionRepository $itemCollectionRepository)
+    #[Route("/{_locale<%app.supported_locales%>}/delete-collection-{collection_id}", name: "delete_item_collection", methods: "get")]
+    public function deleteItemCollection($collection_id, ItemCollectionRepository $itemCollectionRepository)
     {
-        $itemCollection = $itemCollectionRepository->find($id);
+        $itemCollection = $itemCollectionRepository->find($collection_id);
         $token = $this->tokenStorage->getToken();
         if (!$token or !$itemCollection) {
             return $this->redirectToRoute('home');

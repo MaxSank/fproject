@@ -25,8 +25,8 @@ class EditItemCollectionController extends BaseController
         $this->em = $em;
     }
 
-    #[Route('/{_locale<%app.supported_locales%>}/user-{name}/edit-collection-{id}', name: 'edit_item_collection')]
-    public function index($id, $name, Request $request, ItemCollectionRepository $itemCollectionRepository): Response
+    #[Route('/{_locale<%app.supported_locales%>}/user-{name}/edit-collection-{collection_id}', name: 'edit_item_collection')]
+    public function index($name, $collection_id, Request $request, ItemCollectionRepository $itemCollectionRepository): Response
     {
         $forRender = parent::renderDefault();
         $forRender['controller_name'] = 'EditItemCollectionController';
@@ -41,7 +41,7 @@ class EditItemCollectionController extends BaseController
             return $this->redirectToRoute('home');
         }
 
-        $collection = $itemCollectionRepository->find($id);
+        $collection = $itemCollectionRepository->find($collection_id);
         $form = $this->createForm(CreateItemCollectionFormType::class, $collection);
         $forRender['editItemCollectionForm'] = $form->createView();
         $form->handleRequest($request);

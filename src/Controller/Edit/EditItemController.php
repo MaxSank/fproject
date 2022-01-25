@@ -19,6 +19,7 @@ class EditItemController extends BaseController
     private $em;
     private $tokenStorage;
     private $itemCollectionRepository;
+    private $itemRepository;
 
     public function __construct(
         TokenStorageInterface $tokenStorage,
@@ -29,11 +30,12 @@ class EditItemController extends BaseController
         $this->tokenStorage = $tokenStorage;
         $this->em = $em;
         $this->itemCollectionRepository = $itemCollectionRepository;
+        $this->itemRepository = $itemRepository;
     }
 
 
-    #[Route('/{_locale<%app.supported_locales%>}/user-{name}/collection-{collection}/edit-item-{item}', name: 'edit_item')]
-    public function index($name, $collection, $item, Request $request): Response
+    #[Route('/{_locale<%app.supported_locales%>}/user-{name}/collection-{collection_id}/edit-item-{item_id}', name: 'edit_item')]
+    public function index($name, $collection_id, $item_id, Request $request): Response
     {
         $forRender = parent::renderDefault();
         $forRender['controller_name'] = 'EditItemController';
@@ -43,24 +45,26 @@ class EditItemController extends BaseController
             return $this->redirectToRoute('home');
         }
         $userIdentifier = $token->getUser()->getUserIdentifier();
-        $collection_object = $this->itemCollectionRepository->find($collection);
+        $collection = $this->itemCollectionRepository->find($collection_id);
 
         if (($name != $userIdentifier and !$this->isGranted('ROLE_ADMIN'))
-            or $name != $collection_object->getUserId()->getUserIdentifier()) {
+            or $name != $collection->getUserId()->getUserIdentifier()) {
             return $this->redirectToRoute('home');
         }
 
-        $query = $this->em->createQuery(
+        $full_item = $this->itemRepository->find($item_id);
+
+        /*$query = $this->em->createQuery(
             'SELECT i, ia
             FROM App\Entity\Item i
             JOIN i.itemAttributes ia
             WHERE (i.id = :item_id)'
         );
         $query->setParameters([
-            'item_id' => $item,
+            'item_id' => $item_id,
 
         ]);
-        $full_item = $query->getSingleResult();
+        $full_item = $query->getSingleResult();*/
 
         $query = $this->em->createQuery(
             'SELECT ca
@@ -68,7 +72,7 @@ class EditItemController extends BaseController
             WHERE (ca.itemCollection = :collection_id)'
         );
         $query->setParameters([
-            'collection_id' => $collection,
+            'collection_id' => $collection_id,
 
         ]);
         $attributes = $query->getResult();
@@ -92,7 +96,7 @@ class EditItemController extends BaseController
 
             return $this->redirectToRoute('item_collection', [
                 'name' => $name,
-                'id' => $collection,
+                'collection_id' => $collection_id,
             ]);
         }
 

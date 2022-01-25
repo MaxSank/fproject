@@ -12,6 +12,7 @@
             {{ form_row(editItemCollectionForm.description) }}
             {{ form_row(editItemCollectionForm.theme) }}
 
+            {% if editItemCollectionForm.itemCollectionAttributes|length > 0 %}
             <ul class="itemCollectionAttributes">
                 {% for single_collection_attribute in editItemCollectionForm.itemCollectionAttributes %}
                     <hr>
@@ -21,8 +22,13 @@
                         </li>
                 {% endfor %}
             </ul>
+            {% else %}
+                <div style="display: none">{{ form_row(editItemCollectionForm.itemCollectionAttributes) }}</div>
+            {% endif %}
 
-
+            <div>
+                <button type="submit" class="btn btn-success mt-3">{{ 'Edit collection'|trans }}</button>
+            </div>
 
             {{ form_end(editItemCollectionForm) }}
         {% else %}

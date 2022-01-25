@@ -1,0 +1,23 @@
+{% extends 'main/base.html.twig' %}
+
+{% block body %}
+
+    <div class="container">
+        {% if app.user %}
+            <h3 class="mb-3">{{ 'Set value of attribute'|trans }} {{ number_of_attribute }}/{{ base_attributes|length }} {{ 'for item'|trans }} {{ item_name }}</h3>
+
+            {{ form_start(createItemAttributeForm) }}
+            {{ form_errors(createItemAttributeForm) }}
+            {{ form_row(createItemAttributeForm.value, { 'label': item_collection_attribute.name }) }}
+
+
+            <div>
+                <button type="submit" class="btn btn-success mt-3">{{ 'Set value of attribute'|trans }}</button>
+                {{ form_end(createItemAttributeForm) }}
+            </div>
+        {% else %}
+            {{ 'Error!'|trans }}
+        {% endif %}
+    </div>
+
+{% endblock %}

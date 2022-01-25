@@ -23,9 +23,9 @@
     <div>
     {% if app.user %}
         {% if owner_id == app.user.id or is_granted('ROLE_ADMIN') %}
-            <a type="button" class="btn btn-outline-primary mt-1" href="{{ path('create_item', {name: owner_name, id: collection_id}) }}">{{ 'Create item'|trans }}</a>
-            <a type="button" class="btn btn-outline-primary mt-1" href="{{ path('edit_item_collection', {id: collection_id, name: owner_name}) }}">{{ 'Edit collection'|trans }}</a>
-            <a type="button" class="btn btn-outline-danger mt-1" href="{{ path('delete_item_collection', {id: collection_id}) }}">{{ 'Delete collection'|trans }}</a>
+            <a type="button" class="btn btn-outline-primary mt-1" href="{{ path('create_item', {name: owner_name, collection_id: collection_id}) }}">{{ 'Create item'|trans }}</a>
+            <a type="button" class="btn btn-outline-primary mt-1" href="{{ path('edit_item_collection', {collection_id: collection_id, name: owner_name}) }}">{{ 'Edit collection'|trans }}</a>
+            <a type="button" class="btn btn-outline-danger mt-1" href="{{ path('delete_item_collection', {collection_id: collection_id}) }}">{{ 'Delete collection'|trans }}</a>
         {% endif %}
     {% endif %}
 
@@ -39,10 +39,12 @@
         <thead>
         <tr>
             <th>{{ 'Item'|trans }}</th>
-            {% set base_attributes = (items|first).itemCollection.itemCollectionAttributes %}
-            {% for single_base_attribute in base_attributes %}
-            <th>{{ single_base_attribute.name }}</th>
-            {% endfor %}
+            {% if (items|first).itemCollection.itemCollectionAttributes %}
+                {% set base_attributes = (items|first).itemCollection.itemCollectionAttributes %}
+                {% for single_base_attribute in base_attributes %}
+                <th>{{ single_base_attribute.name }}</th>
+                {% endfor %}
+            {% endif %}
             <th>{{ 'Created'|trans }}</th>
             <th>{{ 'Updated'|trans }}</th>
             {% if app.user %}
@@ -55,16 +57,18 @@
         </thead>
         {% for single_item in items %}
             <tr>
-                <td><a href="{{ path('item', {name: owner_name, collection: collection_id, item: single_item.id}) }}" class="d-inline p-1">{{ single_item.name }}</a></td>
-                {% set attributes = single_item.itemAttributes %}
-                {% for single_attribute in attributes %}
-                <td>{{ single_attribute.value }}</td>
-                {% endfor %}
+                <td><a href="{{ path('item', {name: owner_name, collection_id: collection_id, item_id: single_item.id}) }}" class="d-inline p-1">{{ single_item.name }}</a></td>
+                {% if single_item.itemAttributes %}
+                    {% set attributes = single_item.itemAttributes %}
+                    {% for single_attribute in attributes %}
+                    <td>{{ single_attribute.value }}</td>
+                    {% endfor %}
+                {% endif %}
                 <td>{{ single_item.createdat|date('Y-m-d H:i') }}</td>
                 <td>{{ single_item.updatedat|date('Y-m-d H:i') }}</td>
                 {% if app.user %}
                     {% if owner_id == app.user.id or is_granted('ROLE_ADMIN') %}
-                        <td><a href="{{ path('edit_item', {name: owner_name, collection: collection_id, item: single_item.id}) }}" class="d-inline p-1">{{ 'Edit'|trans }}</a></td>
+                        <td><a href="{{ path('edit_item', {name: owner_name, collection_id: collection_id, item_id: single_item.id}) }}" class="d-inline p-1">{{ 'Edit'|trans }}</a></td>
                         <td><a href="{{ path('delete_item', {item_id: single_item.id}) }}" class="d-inline p-1" style="color: darkred">{{ 'Delete'|trans }}</td>
                     {% endif %}
                 {% endif %}

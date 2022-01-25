@@ -48,6 +48,8 @@ Item: Предмет
 Edit item: Изменить предмет
 Delete item: Удалить предмет
 Back to collection: Назад к коллекции
+Set value of attribute: Установить значения для атрибута
+for item: для предмета
 
 'Recently added items:': 'Недавно добавленные предметы:'
 'No Recently added items.': 'Нет недавно добавленных предметов.'

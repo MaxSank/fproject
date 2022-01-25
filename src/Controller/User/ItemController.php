@@ -22,10 +22,10 @@ class ItemController extends BaseController
         $this->em = $em;
     }
 
-    #[Route('/{_locale<%app.supported_locales%>}/user-{name}/collection-{collection}/item-{item}', name: 'item')]
+    #[Route('/{_locale<%app.supported_locales%>}/user-{name}/collection-{collection_id}/item-{item_id}', name: 'item')]
     public function index(string $name,
-                          int $collection,
-                          int $item,
+                          int $collection_id,
+                          int $item_id,
     ): Response
     {
         $forRender = parent::renderDefault();
@@ -43,8 +43,8 @@ class ItemController extends BaseController
             )'
         );
         $query->setParameters([
-            'item_id' => $item,
-            'collection_id' => $collection,
+            'item_id' => $item_id,
+            'collection_id' => $collection_id,
             'user_name' => $name,
             ]);
         $full_item = $query->getSingleResult();
@@ -61,7 +61,7 @@ class ItemController extends BaseController
             WHERE (i.id = :item_id)'
         );
         $query->setParameter(
-            'item_id', $item
+            'item_id', $item_id
         );
         $attributes = $query->getResult();
 
@@ -101,7 +101,7 @@ class ItemController extends BaseController
 
         return $this->redirectToRoute('item_collection', [
             'name' => $itemCollection_object->getUserId()->getUserIdentifier(),
-            'id' => $itemCollection_object->getId(),
+            'collection_id' => $itemCollection_object->getId(),
         ]);
     }
 
