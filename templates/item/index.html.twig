@@ -19,6 +19,7 @@
     {% if app.user %}
         {% if owner_id == app.user.id or is_granted('ROLE_ADMIN') %}
             <a type="button" class="btn btn-outline-primary mt-1" href="{{ path('edit_item', {name: owner_name, collection: collection_id, item: item_id}) }}" class="d-inline p-1">{{ 'Edit item'|trans }}</a>
+            <a type="button" class="btn btn-outline-danger mt-1" href="{{ path('delete_item', {item_id: item_id}) }}" class="d-inline p-1">{{ 'Delete item'|trans }}</a>
         {% endif %}
     {% endif %}
 

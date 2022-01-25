@@ -36,7 +36,7 @@
                     {% if app.user %}
                     {% if single_collection.userId.id == app.user.id or is_granted('ROLE_ADMIN') %}
                     <a href="{{ path('edit_item_collection', {id: single_collection.id, name: owner_name}) }}" class="d-inline p-1">{{ 'Edit'|trans }}</a>
-                    <a href="{{ path('delete_item_collection', {id: single_collection.id}) }}" class="d-inline p-1">{{ 'Delete'|trans }}</a>
+                    <a href="{{ path('delete_item_collection', {id: single_collection.id}) }}" class="d-inline p-1" style="color: darkred">{{ 'Delete'|trans }}</a>
                     {% endif %}
                     {% endif %}
 

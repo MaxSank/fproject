@@ -3,17 +3,22 @@
 namespace App\Controller\User;
 
 use App\Controller\Main\BaseController;
+use App\Repository\ItemRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class ItemController extends BaseController
 {
     private $em;
+    private $tokenStorage;
 
     public function __construct(
+        TokenStorageInterface $tokenStorage,
         EntityManagerInterface $em,
     ) {
+        $this->tokenStorage = $tokenStorage;
         $this->em = $em;
     }
 
@@ -73,6 +78,31 @@ class ItemController extends BaseController
         $forRender['attributes'] = $attributes;
 
         return $this->render('item/index.html.twig', $forRender);
+    }
+
+    #[Route("/{_locale<%app.supported_locales%>}/delete-item-{item_id}", name: "delete_item", methods: "get")]
+    public function deleteItem($item_id, ItemRepository $itemRepository)
+    {
+        $item_object = $itemRepository->find($item_id);
+        $token = $this->tokenStorage->getToken();
+        if (!$token or !$item_object) {
+            return $this->redirectToRoute('home');
+        }
+        $itemCollection_object = $item_object->getItemCollection();
+
+        $userId = $token->getUser()->getId();
+        if ($userId != $item_object->getItemCollection()->getUserId()->getId() and !$this->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('home');
+        }
+
+        $this->em->remove($item_object);
+        $this->em->flush();
+
+
+        return $this->redirectToRoute('item_collection', [
+            'name' => $itemCollection_object->getUserId()->getUserIdentifier(),
+            'id' => $itemCollection_object->getId(),
+        ]);
     }
 
 }

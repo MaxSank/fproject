@@ -16,6 +16,7 @@ Edit: Edit
 Delete: Delete
 Save: Save
 Edit collection: Edit collection
+Delete collection: Delete collection
 page_of_user_text: 'Hello!'
 page_of_user_admin: 'Good day, administrator!'
 page_of_user: 'Page of user'
@@ -45,6 +46,7 @@ Create item: Create item
 'Updated': 'Updated'
 Item: Item
 Edit item: Edit item
+Delete item: Delete item
 Back to collection: Back to collection
 
 'Recently added items:': 'Recently added items:'

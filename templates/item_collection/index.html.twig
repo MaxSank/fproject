@@ -15,8 +15,7 @@
         <h3 class="d-inline p-1">{{ 'Collection'|trans }} {{ collection_name }} {{ 'of user'|trans }} {{ owner_name }}</h3>
         {% if app.user %}
             {% if owner_id == app.user.id or is_granted('ROLE_ADMIN') %}
-                <a href="{{ path('edit_item_collection', {id: collection_id, name: owner_name}) }}" class="d-inline p-1">{{ 'Edit'|trans }}</a>
-                <a href="{{ path('delete_item_collection', {id: collection_id}) }}" class="d-inline p-1">{{ 'Delete'|trans }}</a>
+
             {% endif %}
         {% endif %}
     </div>
@@ -25,6 +24,8 @@
     {% if app.user %}
         {% if owner_id == app.user.id or is_granted('ROLE_ADMIN') %}
             <a type="button" class="btn btn-outline-primary mt-1" href="{{ path('create_item', {name: owner_name, id: collection_id}) }}">{{ 'Create item'|trans }}</a>
+            <a type="button" class="btn btn-outline-primary mt-1" href="{{ path('edit_item_collection', {id: collection_id, name: owner_name}) }}">{{ 'Edit collection'|trans }}</a>
+            <a type="button" class="btn btn-outline-danger mt-1" href="{{ path('delete_item_collection', {id: collection_id}) }}">{{ 'Delete collection'|trans }}</a>
         {% endif %}
     {% endif %}
 
@@ -64,7 +65,7 @@
                 {% if app.user %}
                     {% if owner_id == app.user.id or is_granted('ROLE_ADMIN') %}
                         <td><a href="{{ path('edit_item', {name: owner_name, collection: collection_id, item: single_item.id}) }}" class="d-inline p-1">{{ 'Edit'|trans }}</a></td>
-                        <td></td>
+                        <td><a href="{{ path('delete_item', {item_id: single_item.id}) }}" class="d-inline p-1" style="color: darkred">{{ 'Delete'|trans }}</td>
                     {% endif %}
                 {% endif %}
             </tr>

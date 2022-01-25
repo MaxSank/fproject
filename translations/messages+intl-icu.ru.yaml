@@ -16,6 +16,7 @@ Edit: Изменить
 Delete: Удалить
 Save: Сохранить
 Edit collection: Изменить коллекцию
+Delete collection: Удалить коллекцию
 page_of_user_text: 'Привет! Для создания коллекции нажмите ниже:'
 page_of_user_admin: 'Добрый день, администратор!'
 page_of_user: 'Страница пользователя '
@@ -45,6 +46,7 @@ Create item: Создать предмет
 'Updated': 'Обновлено'
 Item: Предмет
 Edit item: Изменить предмет
+Delete item: Удалить предмет
 Back to collection: Назад к коллекции
 
 'Recently added items:': 'Недавно добавленные предметы:'
