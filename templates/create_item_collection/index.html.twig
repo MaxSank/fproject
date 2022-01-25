@@ -18,11 +18,29 @@
         {% if app.user %}
         <h3 class="mb-3">{{ 'Create collection'|trans }}</h3>
 
+
         {{ form_start(createItemCollectionForm) }}
         {{ form_errors(createItemCollectionForm) }}
         {{ form_row(createItemCollectionForm.name) }}
         {{ form_row(createItemCollectionForm.description) }}
         {{ form_row(createItemCollectionForm.theme) }}
+
+            <div style="display: none">{{ form_row(createItemCollectionForm.itemCollectionAttributes) }}</div>
+
+
+            {# <button type="button" class="add_item_link" data-collection-holder-class="itemCollectionAttributes">Add an attribute</button>
+        <ul class="itemCollectionAttributes"
+            data-index="{{ createItemCollectionForm.itemCollectionAttributes|length > 0 ? createItemCollectionForm.itemCollectionAttributes|last.vars.name + 1 : 0 }}"
+            data-prototype="{{ form_widget(createItemCollectionForm.itemCollectionAttributes.vars.prototype)|e('html_attr') }}">
+            {% for single_collection_attribute in createItemCollectionForm.itemCollectionAttributes %}
+            <hr>
+            <li>
+                {{ form_row(single_collection_attribute.name) }}
+                {{ form_row(single_collection_attribute.attributeType) }}
+            </li>
+            {% endfor %}
+        </ul> #}
+
 
         {#
         <div class="createItemCollectionForm-group row">

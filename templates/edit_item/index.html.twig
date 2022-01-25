@@ -19,11 +19,11 @@
 
             {{ form_start(editeItemForm) }}
             {{ form_errors(editeItemForm) }}
-            {{ dump(editeItemForm.name) }}
+            {# {{ dump(editeItemForm.name) }} #}
             {{ form_row(editeItemForm.name) }}
             {% for single_attribute in editeItemForm.itemAttributes %}
-                {{ dump(single_attribute) }}
-                {{ dump(single_attribute.vars.data.itemCollectionAttribute.name) }}
+                {# {{ dump(single_attribute) }} #}
+                {# {{ dump(single_attribute.vars.data.itemCollectionAttribute.name) }} #}
                 {# {{ form_row(attribute.value, { 'label': base_attributes[loop.index0].name }) }} #}
                 {{ form_row(single_attribute.value, { 'label': single_attribute.vars.data.itemCollectionAttribute.name }) }}
             {% endfor %}

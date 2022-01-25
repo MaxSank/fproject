@@ -3,7 +3,6 @@
 namespace App\Controller\Edit;
 
 use App\Controller\Main\BaseController;
-use App\Entity\Item;
 use App\Form\CreateItemFormType;
 use App\Repository\ItemCollectionRepository;
 use App\Repository\ItemRepository;
@@ -20,7 +19,6 @@ class EditItemController extends BaseController
     private $em;
     private $tokenStorage;
     private $itemCollectionRepository;
-    private $itemRepository;
 
     public function __construct(
         TokenStorageInterface $tokenStorage,
@@ -31,7 +29,6 @@ class EditItemController extends BaseController
         $this->tokenStorage = $tokenStorage;
         $this->em = $em;
         $this->itemCollectionRepository = $itemCollectionRepository;
-        $this->itemRepository = $itemRepository;
     }
 
 
@@ -46,10 +43,10 @@ class EditItemController extends BaseController
             return $this->redirectToRoute('home');
         }
         $userIdentifier = $token->getUser()->getUserIdentifier();
-        $collection = $this->itemCollectionRepository->find($collection);
+        $collection_object = $this->itemCollectionRepository->find($collection);
 
         if (($name != $userIdentifier and !$this->isGranted('ROLE_ADMIN'))
-            or $name != $collection->getUserId()->getUserIdentifier()) {
+            or $name != $collection_object->getUserId()->getUserIdentifier()) {
             return $this->redirectToRoute('home');
         }
 
@@ -88,7 +85,8 @@ class EditItemController extends BaseController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $currentTime = new DateTime('now', new DateTimeZone('Europe/Minsk'));
-            $item->setUpdatedAt($currentTime);
+            $full_item->setUpdatedAt($currentTime);
+
 
             $this->em->flush();
 

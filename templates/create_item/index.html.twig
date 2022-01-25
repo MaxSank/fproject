@@ -20,8 +20,11 @@
             {{ form_start(createItemForm) }}
             {{ form_errors(createItemForm) }}
             {{ form_row(createItemForm.name) }}
-            {% for attribute in createItemForm.itemAttributes %}
-                {{ form_row(attribute.value) }}
+            {% for single_base_attribute in base_attributes %}
+
+
+                 {{ form_row(single_base_attribute.value, { 'label': single_base_attribute.name }) }}
+{#{{ form_row(single_attribute.value, { 'label': single_attribute.vars.data.itemCollectionAttribute.name }) }}#}
             {% endfor %}
 
             <div>

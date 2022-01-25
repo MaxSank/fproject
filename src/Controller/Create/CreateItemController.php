@@ -50,6 +50,17 @@ class CreateItemController extends BaseController
             return $this->redirectToRoute('home');
         }
 
+        $query = $this->em->createQuery(
+            'SELECT ca
+            FROM App\Entity\ItemCollectionAttribute ca
+            WHERE (ca.itemCollection = :collection_id)'
+        );
+        $query->setParameters([
+            'collection_id' => $id,
+
+        ]);
+        $attributes = $query->getResult();
+        $forRender['base_attributes'] = $attributes;
 
         $item = new Item();
         $form = $this->createForm(CreateItemFormType::class, $item);

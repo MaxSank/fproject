@@ -3,8 +3,10 @@
 namespace App\Form;
 
 use App\Entity\ItemCollection;
+use App\Entity\ItemCollectionAttribute;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -43,8 +45,17 @@ class CreateItemCollectionFormType extends AbstractType
                 ],
                 'translation_domain' => 'messages',
                 'label' => 'Select a theme for the collection:',
-            ))
-        ;
+            ));
+
+        
+        $builder
+            ->add('itemCollectionAttributes', CollectionType::class, [
+                'entry_type' => CreateItemCollectionAttributeFormType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                ]
+
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -12,7 +12,18 @@
             {{ form_row(editItemCollectionForm.description) }}
             {{ form_row(editItemCollectionForm.theme) }}
 
-            <button type="submit" class="btn btn-success mt-3">{{ 'Save'|trans }}</button>
+            <ul class="itemCollectionAttributes">
+                {% for single_collection_attribute in editItemCollectionForm.itemCollectionAttributes %}
+                    <hr>
+                        <li>
+                            {{ form_row(single_collection_attribute.name) }}
+                            {{ form_row(single_collection_attribute.attributeType) }}
+                        </li>
+                {% endfor %}
+            </ul>
+
+
+
             {{ form_end(editItemCollectionForm) }}
         {% else %}
             {{ 'Login to your account or register!'|trans }}
