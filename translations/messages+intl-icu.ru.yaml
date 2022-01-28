@@ -53,7 +53,7 @@ for item: для предмета
 
 'Recently added items:': 'Недавно добавленные предметы:'
 'No Recently added items.': 'Нет недавно добавленных предметов.'
-'Largest number of items:': 'Наибольшее количество предметов:'
+'Largest number of items in collections:': 'Наибольшее количество предметов в коллекциях:'
 'in': 'в'
 'No items in collections.': 'Нет предметов в коллекции.'
 
@@ -74,3 +74,9 @@ User: Пользователь
 Admin: Админ
 Yes: Да
 No: Нет
+
+Search: Поиск
+Search results: Результаты поиска
+Nothing found: Ничего не найдено
+'Number of items found:': 'Количество найденных предметов:'
+Enter your search query in the form at the top of the page: Введите поисковый запрос в форму вверху страницы

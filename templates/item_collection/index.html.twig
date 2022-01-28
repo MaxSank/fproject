@@ -1,5 +1,12 @@
 {% extends 'main/base.html.twig' %}
 
+{% block meta %}
+    <meta name="viewport"
+          content="width=1140, initial-scale=1, user-scalable=yes">
+{% endblock meta %}
+
+
+
 {% block stylesheets %}
     {{ parent() }}
 
@@ -23,13 +30,13 @@
     <div>
     {% if app.user %}
         {% if owner_id == app.user.id or is_granted('ROLE_ADMIN') %}
-            <a type="button" class="btn btn-outline-primary mt-1" href="{{ path('create_item', {name: owner_name, collection_id: collection_id}) }}">{{ 'Create item'|trans }}</a>
-            <a type="button" class="btn btn-outline-primary mt-1" href="{{ path('edit_item_collection', {collection_id: collection_id, name: owner_name}) }}">{{ 'Edit collection'|trans }}</a>
-            <a type="button" class="btn btn-outline-danger mt-1" href="{{ path('delete_item_collection', {collection_id: collection_id}) }}">{{ 'Delete collection'|trans }}</a>
+            <a type="button" class="btn btn-outline-primary mt-2" href="{{ path('create_item', {name: owner_name, collection_id: collection_id}) }}">{{ 'Create item'|trans }}</a>
+            <a type="button" class="btn btn-outline-primary mt-2" href="{{ path('edit_item_collection', {collection_id: collection_id, name: owner_name}) }}">{{ 'Edit collection'|trans }}</a>
+            <a type="button" class="btn btn-outline-danger mt-2" href="{{ path('delete_item_collection', {collection_id: collection_id}) }}">{{ 'Delete collection'|trans }}</a>
         {% endif %}
     {% endif %}
 
-    <a type="button" class="btn btn-outline-primary mt-1" href="{{ path('user', {name: owner_name}) }}">{{ 'Back to personal page'|trans }}</a>
+    <a type="button" class="btn btn-outline-primary mt-2" href="{{ path('user', {name: owner_name}) }}">{{ 'Back to personal page'|trans }}</a>
     </div>
     <hr>
 
@@ -57,7 +64,14 @@
         </thead>
         {% for single_item in items %}
             <tr>
-                <td><a href="{{ path('item', {name: owner_name, collection_id: collection_id, item_id: single_item.id}) }}" class="d-inline p-1">{{ single_item.name }}</a></td>
+                <td><a
+                        href="{{
+                            path('item',
+                            {name: owner_name, collection_id: collection_id, item_id: single_item.id})
+                        }}"
+                         class="d-inline p-1">{{ single_item.name }}
+                    </a>
+                </td>
                 {% if single_item.itemAttributes %}
                     {% set attributes = single_item.itemAttributes %}
                     {% for single_attribute in attributes %}

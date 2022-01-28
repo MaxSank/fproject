@@ -53,7 +53,7 @@ for item: for item
 
 'Recently added items:': 'Recently added items:'
 'No recently added items.': 'No recently added items.'
-'Largest number of items:': 'Largest number of items:'
+'Largest number of items in collections:': 'Largest number of items in collections:'
 'in': 'in'
 'No items in collections.': 'No items in collections.'
 
@@ -74,3 +74,9 @@ User: User
 Admin: Admin
 Yes: Yes
 No: No
+
+Search: Search
+Search results: Search results
+Nothing found: Nothing found
+'Number of items found:': 'Number of items found:'
+Enter your search query in the form at the top of the page: Enter your search query in the form at the top of the page

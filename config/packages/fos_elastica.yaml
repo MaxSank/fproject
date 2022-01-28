@@ -1,0 +1,63 @@
+# Read the documentation: https://github.com/FriendsOfSymfony/FOSElasticaBundle/blob/master/doc/setup.md
+fos_elastica:
+    clients:
+        default: { url: '%env(ELASTICSEARCH_URL)%' }
+    indexes:
+        item:
+            properties:
+                id:
+                    type: integer
+                name:
+                    type: text
+                createdAt:
+                    type: "date"
+                    fields:
+                        formatted:
+                            type: text
+                updatedAt:
+                    type: "date"
+                    fields:
+                        formatted:
+                            type: text
+                itemAttributes:
+                    type: "object"
+                    properties:
+                        value:
+                            type: text
+                itemCollection:
+                    type: "object"
+                    properties:
+                        id:
+                            type: integer
+                        name:
+                            type: text
+                        description:
+                            type: text
+                        createdAt:
+                            type: "date"
+                            fields:
+                                formatted:
+                                    type: text
+                        theme:
+                            type: text
+                        userId:
+                            type: "object"
+                            properties:
+                                name:
+                                    type: text
+                        itemCollectionAttributes:
+                            type: "object"
+                            properties:
+                                name:
+                                    type: text
+
+
+
+
+
+
+
+
+            persistence:
+                driver: orm
+                model: App\Entity\Item

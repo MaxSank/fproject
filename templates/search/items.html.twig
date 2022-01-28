@@ -1,0 +1,31 @@
+{% extends 'main/base.html.twig' %}
+
+{% block body %}
+    {% if search_keyword is defined %}
+        <h3>{{ title|trans }} - "{{ search_keyword }}"</h3>
+
+        {% if search_result %}
+            <div>
+                {{ 'Number of items found:'|trans }} {{ search_result|length }}
+            </div>
+            {% for single_item in search_result %}
+                <div>
+                {{ loop.index }}. <a
+                                    href="{{
+                                        path('item',
+                                        {name: single_item.itemCollection.userId.name, collection_id: single_item.itemCollection.id, item_id: single_item.id})
+                                    }}"
+                                    class="d-inline p-1">{{ single_item.name }}
+                    </a>
+                </div>
+
+
+            {% endfor %}
+        {% else %}
+            {{ 'Nothing found'|trans }}
+        {% endif %}
+    {% else %}
+        {{ 'Enter your search query in the form at the top of the page'|trans }}
+    {% endif %}
+
+{% endblock %}
